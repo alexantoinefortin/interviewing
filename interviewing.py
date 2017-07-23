@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route('/interviewing', methods=['GET','POST'])
 #@auth.login_required
 def interviewing():
-    return render_template('interviewing.html')
+    return render_template('interviewing.html', slogan='Yay!', DisplayName='Interviewing')
 
 # SERVING
 if __name__ == '__main__':

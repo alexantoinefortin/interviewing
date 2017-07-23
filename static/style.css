@@ -1,4 +1,4 @@
-	body {margin:0px; padding:0px; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:8pt;} 
+	body {margin:0px; padding:0px; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:8pt;}
       img {border-width:0px}
 	a {color:#003355; font-size: 8pt;}
 	form {margin:0px;padding:0px}
@@ -13,10 +13,10 @@
       .altRow {background-color:#EDF3FE}
 	.regRow {background-color:#FFFFFF}
 
-    .tabs {border-bottom:4px solid #4F8FCA; height:16px; padding-left: 20px; }  
+    .tabs {border-bottom:2px solid #4F8FCA; height:16px; padding-left: 20px; }
     .tabs a {text-decoration:none;cursor:pointer;}
-    .tab_left {background-repeat:no-repeat;width:16px;height:16px;float:left;}
-    .tab_right {background-repeat:no-repeat;width:16px;height:16px;float:left;}
+    .tab_left {background-repeat:no-repeat;width:16px;height:16px;float:left;border-bottom:2px solid #4F8FCA;}
+    .tab_right {background-repeat:no-repeat;width:16px;height:16px;float:left;border-bottom:2px solid #4F8FCA;}
     .tab_text { float:left;height:14px;padding:0px 0px 0px 0px;background-color:#DDD;border-top:2px solid #999;margin-bottom:-2px;}
     .bluetab .tab_left {background-image:url(bluetab-left.gif);}
     .bluetab .tab_text {background-color:#4F8FCA;border-top: 2px solid #004E82;font-weight:bold;height:16px;color: #ffffff; }
@@ -43,8 +43,8 @@
 	.titleSection {	width: 100%;padding-top: 6px }
 	.titleSectionSeperator {background-color:#d4d0c8;line-height:1px;margin-top: 7px;border-top-color:#808080;border-top-style:solid;border-top-width:1px;}
 
-	input.formbutton {height:18px; width:auto; overflow:visible; border:1px solid #003355; padding:0px 3px 0px 3px; cursor:hand; background-image: url("img/button_background.jpg"); }	
-     .formbutton {height:18px; width:auto; overflow:visible; border:1px solid #003355; padding:0px 3px 0px 3px; cursor:hand; background-image: url("img/button_background.jpg"); }	
+	input.formbutton {height:18px; width:auto; overflow:visible; border:1px solid #003355; padding:0px 3px 0px 3px; cursor:hand; background-image: url("img/button_background.jpg"); }
+     .formbutton {height:18px; width:auto; overflow:visible; border:1px solid #003355; padding:0px 3px 0px 3px; cursor:hand; background-image: url("img/button_background.jpg"); }
       th.sorted a, th.sortable a {
         background-position: right;
         display: block;
@@ -53,8 +53,8 @@
         list-style-type:none;
         text-decoration:none;
       }
-      
+
       .align_left { text-align: left; }
       .align_right { text-align: right; }
-      
+
       .fullscreen { width: 100%; margin: 0px; padding: 0px; border:0; outline:0; }

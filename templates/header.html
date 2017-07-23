@@ -1,9 +1,15 @@
 <!-- Header -->
 <head>
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+	<title>{{DisplayName}}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+	<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
-
+<body>
 <img src="{{url_for('static', filename='SDA_logo.jpg')}}" alt="SDA header" style="width:550px;height:70px;">
 
 <br/>
