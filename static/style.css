@@ -1,0 +1,60 @@
+	body {margin:0px; padding:0px; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:8pt;} 
+      img {border-width:0px}
+	a {color:#003355; font-size: 8pt;}
+	form {margin:0px;padding:0px}
+	input {border-width:2px;margin:0px;font-size: 8pt; font-family: Verdana, Arial, Helvetica, sans-serif;}
+	textarea {border-width:2px;margin:0px;font-size: 8pt; font-family: Verdana, Arial, Helvetica, sans-serif;}
+	select {font-size: 8pt; font-family: Verdana, Arial, Helvetica, sans-serif;}
+	tr {vertical-align:top}
+	td {font-size:8pt}
+      .content {padding:0px 5px 5px 10px;margin-bottom:30px}
+      .checkPageFlow {border-right:2px solid #555656;border-top:1px solid #dddddd;padding:4px; font-weight:bold;}
+      .Label {font-weight:normal;font-size:8pt;color:#004E82;text-align:left;white-space:nowrap;}
+      .altRow {background-color:#EDF3FE}
+	.regRow {background-color:#FFFFFF}
+
+    .tabs {border-bottom:4px solid #4F8FCA; height:16px; padding-left: 20px; }  
+    .tabs a {text-decoration:none;cursor:pointer;}
+    .tab_left {background-repeat:no-repeat;width:16px;height:16px;float:left;}
+    .tab_right {background-repeat:no-repeat;width:16px;height:16px;float:left;}
+    .tab_text { float:left;height:14px;padding:0px 0px 0px 0px;background-color:#DDD;border-top:2px solid #999;margin-bottom:-2px;}
+    .bluetab .tab_left {background-image:url(bluetab-left.gif);}
+    .bluetab .tab_text {background-color:#4F8FCA;border-top: 2px solid #004E82;font-weight:bold;height:16px;color: #ffffff; }
+    .bluetab .tab_text a {color: #ffffff}
+    .bluetab .tab_right {background-image:url(bluetab-right.gif);}
+    .graytab .tab_left {background-image:url(graytab-left.gif);}
+    .graytab .tab_right {background-image:url(graytab-right.gif);background-repeat:no-repeat;height:16px;float:left;}
+    .graytab .tab_text {background-color:#DDD;border-top: 2px solid #999;border-bottom: 1px solid #DDD;height:13px; }
+
+    .dataTableDisplayTag {border:1px solid #979A9E;margin-top:5px;width:100%;padding:2px 0px 2px 2px;margin-bottom: 8px;}
+    .dataTableDisplayTag tr {vertical-align:middle; height: 20px}
+    .dataTableDisplayTag th {font-size:8pt;text-align:left;color: #000000;border-right:1px solid #979A9E;}
+    .dataTableDisplayTag td {border-right:1px solid #979A9E;font-size:8pt;height: 18px;padding-left: 2px;}
+    .dataTableDisplayTag .header {border-right:1px solid #979A9E;border-bottom:1px solid #979A9E;font-weight:bold;background-color:#ECE9D8;color: black;padding-left: 2px;}
+    .dataTableDisplayTag .header A {border-right-width: 0px;border-bottom:1px solid #979A9E;text-decoration:none;text-align:left;color: black;}
+    .dataTableDisplayTag .sortableHeader {border-right:1px solid #979A9E;font-weight:bold;background-color:#ECE9D8;border-left:2px solid white;border-top:2px solid white;border-bottom:2px solid #ACA899;text-align:left;vertical-align:top}
+    .dataTableDisplayTag .sortableHeader A {border-right-width: 0px;text-decoration:none;	text-align:left}
+    .dataTableDisplayTag .tddollar {text-decoration:none;	text-align:right}
+
+	.titleArea {margin-left:4px;margin-right:4px}
+	.titleText {font-size:12pt;font-weight:bold;color:#00375C;}
+      .titleLeftSection {float:left;}
+	.title_leftSection {float:left; width: 100%;}
+	.titleSection {	width: 100%;padding-top: 6px }
+	.titleSectionSeperator {background-color:#d4d0c8;line-height:1px;margin-top: 7px;border-top-color:#808080;border-top-style:solid;border-top-width:1px;}
+
+	input.formbutton {height:18px; width:auto; overflow:visible; border:1px solid #003355; padding:0px 3px 0px 3px; cursor:hand; background-image: url("img/button_background.jpg"); }	
+     .formbutton {height:18px; width:auto; overflow:visible; border:1px solid #003355; padding:0px 3px 0px 3px; cursor:hand; background-image: url("img/button_background.jpg"); }	
+      th.sorted a, th.sortable a {
+        background-position: right;
+        display: block;
+        width: 100%;
+        background-repeat:no-repeat;
+        list-style-type:none;
+        text-decoration:none;
+      }
+      
+      .align_left { text-align: left; }
+      .align_right { text-align: right; }
+      
+      .fullscreen { width: 100%; margin: 0px; padding: 0px; border:0; outline:0; }
