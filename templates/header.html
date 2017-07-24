@@ -17,41 +17,35 @@
 <br/>
 <div class="content">
 <div class="tabs">
-  <div class="graytab">
+  <div class={% if Progress==0 %}"bluetab"{% else %}"graytab"{% endif %}>
     <div class="tab_left"></div>
     <div class="tab_text">
-      East region</div>
+      General</div>
     <div class="tab_right"></div>
   </div>
-	<div class="graytab">
+	<div class={% if Progress==1 %}"bluetab"{% else %}"graytab"{% endif %}>
     <div class="tab_left"></div>
     <div class="tab_text">
-      Central region</div>
+      Cognitive</div>
     <div class="tab_right"></div>
   </div>
-	<div class="graytab">
+	<div class={% if Progress==2 %}"bluetab"{% else %}"graytab"{% endif %}>
 	  <div class="tab_left"></div>
 	  <div class="tab_text">
-		  West region</div>
+		  Role-related</div>
 	  <div class="tab_right"></div>
   </div>
-  <div class="graytab">
+  <div class={% if Progress==3 %}"bluetab"{% else %}"graytab"{% endif %}>
 		<div class="tab_left"></div>
 		<div class="tab_text">
-			Monitoring</div>
+			Coolness</div>
 		<div class="tab_right"></div>
 	</div>
-  <div class="bluetab">
+  <div class={% if Progress==4 %}"bluetab"{% else %}"graytab"{% endif %}>
     <div class="tab_left"></div>
     <div class="tab_text">
-      Stats</div>
+      Leadership Exp</div>
     <div class="tab_right"></div>
   </div>
-  <div class="graytab">
-      <div class="tab_left"></div>
-      <div class="tab_text">
-        SPBNR</div>
-      <div class="tab_right"></div>
-    </div>
 </div>
 </div>

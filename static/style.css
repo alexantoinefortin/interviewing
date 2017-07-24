@@ -13,11 +13,11 @@
       .altRow {background-color:#EDF3FE}
 	.regRow {background-color:#FFFFFF}
 
-    .tabs {border-bottom:2px solid #4F8FCA; height:16px; padding-left: 20px; }
+    .tabs {border-bottom:1px solid #4F8FCA; height:16px; padding-left: 20px; }
     .tabs a {text-decoration:none;cursor:pointer;}
-    .tab_left {background-repeat:no-repeat;width:16px;height:16px;float:left;border-bottom:2px solid #4F8FCA;}
-    .tab_right {background-repeat:no-repeat;width:16px;height:16px;float:left;border-bottom:2px solid #4F8FCA;}
-    .tab_text { float:left;height:14px;padding:0px 0px 0px 0px;background-color:#DDD;border-top:2px solid #999;margin-bottom:-2px;}
+    .tab_left {background-repeat:no-repeat;width:16px;height:16px;float:left;border-bottom:1px solid #4F8FCA;}
+    .tab_right {background-repeat:no-repeat;width:16px;height:16px;float:left;border-bottom:1px solid #4F8FCA;}
+    .tab_text { float:left;height:14px;padding:0px 0px 0px 0px;background-color:#DDD;border-top:1px solid #999;margin-bottom:-2px;}
     .bluetab .tab_left {background-image:url(bluetab-left.gif);}
     .bluetab .tab_text {background-color:#4F8FCA;border-top: 2px solid #004E82;font-weight:bold;height:16px;color: #ffffff; }
     .bluetab .tab_text a {color: #ffffff}

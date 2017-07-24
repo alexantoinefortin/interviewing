@@ -2,11 +2,17 @@
 <html>
 {% include "header.html" %}
 <br>
-
-<div>
-Hello World!
-</div>
-
+{% if Progress==0 %}
+  {% include "questionsGeneral.html" %}
+{% elif Progress==1 %}
+  {% include "questionsCognitive.html" %}
+{% elif Progress==2 %}
+  {% include "questionsRolerelated.html" %}
+{% elif Progress==3 %}
+  {% include "questionsCoolness.html" %}
+{% elif Progress==4 %}
+  {% include "questionsLeadership.html" %}
+{% endif %}
 <hr>
 {% include "footer.html" %}
 </body>
