@@ -3,7 +3,7 @@
 <div class="w3-display-container w3-padding-large">
   <form action="" method="post" autocomplete="off">
 		<label>Evaluator's information</label><br>
-    <input type="text" id="evaluatorName" name="evaluatorName" placeholder="Your name (John Smith)" {% if sess['evaluatorName'] %}value="{{sess['evaluatorName']}}"{% endif %} style="width:200px">
+    <input type="text" id="evaluatorName" name="evaluatorName" placeholder="Your name (John Smith)" {% if sess['evaluatorName'] %}value="{{sess['evaluatorName']}}"{% endif %} style="width:200px" autofocus>
     <input type="text" id="userID" name="userID" placeholder="Your AmFam ID (jxs007)" {% if sess['userID'] %}value="{{sess['userID']}}"{% endif %} style="width:200px">
     <hr>
     <label>Interviewee's information</label><br>
