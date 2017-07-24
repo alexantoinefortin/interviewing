@@ -71,9 +71,6 @@ def returnScoreStats(session, checkStr):
 
 def addReviewsToSession(session, queryResultsLst):
     if len(queryResultsLst)>0:
-        session['intervieweeFirstName'] = queryResultsLst[0]['form_elm']['intervieweeFirstName']
-        session['intervieweeLastName'] = queryResultsLst[0]['form_elm']['intervieweeLastName']
-        session['interviewDate'] = queryResultsLst[0]['form_elm']['interviewDate']
         session = initializeSessionList(session)
         for i in range(len(queryResultsLst)):
             tmpInfo = queryResultsLst[i]['form_elm']
@@ -99,8 +96,8 @@ def addReviewsToSession(session, queryResultsLst):
         session['coolnessScorestat'] = returnScoreStats(session, 'coolnessScore')
         session['leadershipScorestat'] = returnScoreStats(session, 'leadershipScore')
         #TODO: overall mean
-        session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership']
-        session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat']
+    session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership']
+    session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat']
     return session
 
 # MONGODB utility functions

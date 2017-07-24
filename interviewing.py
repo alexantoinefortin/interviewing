@@ -79,8 +79,10 @@ def postHiring():
         queryResultsLst = f.read_mongo(db, 'interviewing', query)
         session.clear() # We are done with this information
         # Add reviews/comments to session
+        session['intervieweeFirstName'] = flask.request.form.get('intervieweeFirstName')
+        session['intervieweeLastName'] = flask.request.form.get('intervieweeLastName')
+        session['interviewDate'] = flask.request.form.get('interviewDate')
         sess = f.addReviewsToSession(session, queryResultsLst)
-        print sess
         return render_template('hiringPOST.html', DisplayName='Interviewing',
         sess=sess)
 
