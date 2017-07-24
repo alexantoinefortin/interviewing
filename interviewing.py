@@ -52,9 +52,18 @@ def thankyou():
     db = f._connect_mongo(conf['host'], conf['port'], conf['username'], conf['password'], conf['db'])
     f.insert_mongo(db, 'interviewing', dict(session))
     # clear session
+    tmp_first = session['intervieweeFirstName']
     session.clear()
     return render_template( 'thankyou.html',
-                            IntervieweeName='John Smith')
+                            IntervieweeName=tmp_first)
+
+@app.route('/interviewing/hiringmanager', methods=['GET'])
+def getHiring():
+    return render_template('getHiring.html', DisplayName='Interviewing')
+
+@app.route('/interviewing/hiringmanager', methods=['POST'])
+def postHiring():
+    return render_template('postHiring.html', DisplayName='Interviewing')
 
 # SERVING
 if __name__ == '__main__':

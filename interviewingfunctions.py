@@ -58,7 +58,8 @@ def read_mongo(db, collection, query={}, host='localhost', port=27017, username=
     # Connect to MongoDB
     db = _connect_mongo(host=host, port=port, username=username, password=password, db=db)
     # Make a query to the specific DB and Collection
-    cursor = db['vivaMundo'].find(query)
+    cursor = db[collection].find(query)
+    print cursor
     # Expand the cursor and construct the DataFrame
     #print "listcursor: {}".format(list(cursor)[0]['customer'])
     cust_dict = list(cursor)[0]['customer']
