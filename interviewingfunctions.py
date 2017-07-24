@@ -46,6 +46,61 @@ def addToSession(session, flaskform):
         session['leadershipScore'] = flaskform.get('slider')
     return session
 
+def initializeSessionList(session):
+    session['commentGeneral']=[]
+    session['overallScore']=[]
+    session['commentCognitive']=[]
+    session['cognitiveScore']=[]
+    session['commentRoleRelated']=[]
+    session['rolerelatedScore']=[]
+    session['commentCoolness']=[]
+    session['coolnessScore']=[]
+    session['commentLeadership']=[]
+    session['leadershipScore']=[]
+    return session
+
+def removeCommentIfEmpty(session, checkStr):
+    session[checkStr] = [x for x in session[checkStr] if x not in ['', u'', ' ', u' ']]
+    return session
+
+def addReviewsToSession(session, queryResultsLst):
+    if len(queryResultsLst)>0:
+        session['intervieweeFirstName'] = queryResultsLst[0]['form_elm']['intervieweeFirstName']
+        session['intervieweeLastName'] = queryResultsLst[0]['form_elm']['intervieweeLastName']
+        session['interviewDate'] = queryResultsLst[0]['form_elm']['interviewDate']
+        session = initializeSessionList(session)
+        for i in range(len(queryResultsLst)):
+            tmpInfo = queryResultsLst[i]['form_elm']
+            session['commentGeneral']+=[tmpInfo['commentGeneral']]
+            session['overallScore']+=[tmpInfo['overallScore']]
+            session['commentCognitive']+=[tmpInfo['commentOneCognitive']]
+            session['commentCognitive']+=[tmpInfo['commentTwoCognitive']]
+            session['commentCognitive']+=[tmpInfo['commentThreeCognitive']]
+            session['commentCognitive']+=[tmpInfo['commentFourCognitive']]
+            session['cognitiveScore']+=[tmpInfo['cognitiveScore']]
+            session['commentRoleRelated']+=[tmpInfo['commentOneRoleRelated']]
+            session['commentRoleRelated']+=[tmpInfo['commentTwoRoleRelated']]
+            session['commentRoleRelated']+=[tmpInfo['commentThreeRoleRelated']]
+            session['commentRoleRelated']+=[tmpInfo['commentFourRoleRelated']]
+            session['rolerelatedScore']+=[tmpInfo['rolerelatedScore']]
+            session['commentCoolness']+=[tmpInfo['commentOneCoolness']]
+            session['commentCoolness']+=[tmpInfo['commentTwoCoolness']]
+            session['commentCoolness']+=[tmpInfo['commentThreeCoolness']]
+            session['commentCoolness']+=[tmpInfo['commentFourCoolness']]
+            session['coolnessScore']+=[tmpInfo['coolnessScore']]
+            session['commentLeadership']+=[tmpInfo['commentOneLeadership']]
+            session['commentLeadership']+=[tmpInfo['commentTwoLeadership']]
+            session['commentLeadership']+=[tmpInfo['commentThreeLeadership']]
+            session['commentLeadership']+=[tmpInfo['commentFourLeadership']]
+            session['leadershipScore']+=[tmpInfo['leadershipScore']]
+        session = removeCommentIfEmpty(session, 'commentGeneral')
+        session = removeCommentIfEmpty(session, 'commentCognitive')
+        session = removeCommentIfEmpty(session, 'commentRoleRelated')
+        session = removeCommentIfEmpty(session, 'commentCoolness')
+        session = removeCommentIfEmpty(session, 'commentLeadership')
+    return session
+
+# MONGODB utility functions
 def _connect_mongo(conf):
     """ A util for making a connection to mongo """
     with open(conf) as infile:
