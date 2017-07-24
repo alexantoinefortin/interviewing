@@ -41,18 +41,23 @@ def interviewing():
         session['progress_count']= session['progress_count'] - 1
         return redirect(url_for('index'))
     elif 'submit_button' in flask.request.form:
-        session['progress_count']=0
+        session.pop('progress_count', None) # don't want to log that
         return redirect(url_for('thankyou'))
 
 @app.route('/interviewing/thankyou', methods=['GET'])
 def thankyou():
     # post session to DB
     db = f._connect_mongo('config')
-    f.insert_mongo(db, 'interviewing', dict(session))
+    dict_to_insert = {'form_elm':dict(session)}
+    dict_to_insert['id'] = dict_to_insert['form_elm']['intervieweeFirstName']+dict_to_insert['form_elm']['intervieweeLastName']+dict_to_insert['form_elm']['interviewDate']
+    dict_to_insert['id'] = dict_to_insert['id'].lower().strip()
+    print "id is:{}.".format(dict_to_insert['id'])
+    f.insert_mongo(db, 'interviewing', dict_to_insert)
     # clear session
     tmp_first = session['intervieweeFirstName']
     session.clear()
     return render_template( 'thankyou.html',
+                            DisplayName='Interviewing',
                             IntervieweeName=tmp_first)
 
 @app.route('/interviewing/hiringmanager', methods=['GET'])

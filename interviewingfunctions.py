@@ -18,6 +18,7 @@ def addToSession(session, flaskform):
         session['intervieweeLastName'] = flaskform.get('intervieweeLastName').strip()
         session['intervieweeRole'] = flaskform.get('intervieweeRole').strip()
         session['interviewDate'] = flaskform.get('interviewDate').strip()
+        session['commentGeneral'] = flaskform.get('commentGeneral').strip()
         session['overallScore'] = flaskform.get('slider')
     elif 'commentOneCognitive' in flaskform:
         session['commentOneCognitive'] = flaskform.get('commentOneCognitive').strip()
