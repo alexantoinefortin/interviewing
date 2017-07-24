@@ -98,6 +98,7 @@ def addReviewsToSession(session, queryResultsLst):
         session['rolerelatedScorestat'] = returnScoreStats(session, 'rolerelatedScore')
         session['coolnessScorestat'] = returnScoreStats(session, 'coolnessScore')
         session['leadershipScorestat'] = returnScoreStats(session, 'leadershipScore')
+        #TODO: overall mean
         session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership']
         session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat']
     return session
