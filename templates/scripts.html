@@ -1,0 +1,26 @@
+<!-- Scripts -->
+
+<script type="text/javascript">
+<!-- Get value of slider -->
+function showValue(newValue)
+{
+  document.getElementById("mySliderValue").innerHTML=newValue;
+}
+
+
+<!-- Get meaning, in English, of sliders value -->
+function getMeaningValue(newValue)
+{
+	if (newValue < 2){
+		valueMeaning = "1: I don't want to see this person again"
+	}	else if (newValue < 3){
+		valueMeaning = '2: This person is a 50-50 bet'
+	} else if (newValue < 4){
+		valueMeaning = "3: I'm okay with this person having an offer, but someone else should like him a lot"
+	} else if (newValue == 4){
+		valueMeaning = "4: I want to hire this person and whoever does not can expect to hear from me"
+	}
+	document.getElementById("scoreMeaningLabel").innerHTML=valueMeaning;
+}
+
+</script>
