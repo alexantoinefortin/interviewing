@@ -6,6 +6,10 @@
 <h4>{{sess['intervieweeFirstName']}} {{sess['intervieweeLastName']}}</h4>
 interviewed on: {{sess['interviewDate']}}
   <div class="w3-row">
+    <!-- Back button -->
+    <form action="" method="post" autocomplete="off">
+      <input type="submit" name='back_button' value="Back" style="margin-top:10px">
+    </form>
     <div class="w3-twothird w3-container">
       <h3 class="w3-text-indigo">General</h3>
       {% for i in range(sess['commentGeneral']|length) %}
@@ -49,6 +53,10 @@ interviewed on: {{sess['interviewDate']}}
         {% endfor %}
         {% endfor %}
         </table>
+        <!-- Back button -->
+        <form action="" method="post" autocomplete="off">
+          <input type="submit" name='back_button' value="Back" style="margin-top:10px">
+        </form>
       </div>
   </div>
 </div>

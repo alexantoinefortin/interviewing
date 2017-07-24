@@ -69,16 +69,19 @@ def getHiring():
 @app.route('/interviewing/hiringmanager', methods=['POST'])
 def postHiring():
     print "This is a POST request on hiringmanager"
-    db = f._connect_mongo('config')
-    query = flask.request.form.get('intervieweeFirstName')+flask.request.form.get('intervieweeLastName')+flask.request.form.get('interviewDate')
-    query = query.lower().strip()
-    queryResultsLst = f.read_mongo(db, 'interviewing', query)
-    session.clear() # We are done with this information
-    # Add review to session
-    sess = f.addReviewsToSession(session, queryResultsLst)
-    print sess
-    return render_template('hiringPOST.html', DisplayName='Interviewing',
-    sess=sess)
+    if 'back_button' in flask.request.form:
+        return redirect(url_for('getHiring'))
+    else:
+        db = f._connect_mongo('config')
+        query = flask.request.form.get('intervieweeFirstName')+flask.request.form.get('intervieweeLastName')+flask.request.form.get('interviewDate')
+        query = query.lower().strip()
+        queryResultsLst = f.read_mongo(db, 'interviewing', query)
+        session.clear() # We are done with this information
+        # Add reviews/comments to session
+        sess = f.addReviewsToSession(session, queryResultsLst)
+        print sess
+        return render_template('hiringPOST.html', DisplayName='Interviewing',
+        sess=sess)
 
 # SERVING
 if __name__ == '__main__':
