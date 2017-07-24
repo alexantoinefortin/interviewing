@@ -26,7 +26,8 @@ def index():
     print session
     return render_template( 'interviewing.html',
                             Progress=session['progress_count'],
-                            DisplayName='Interviewing')
+                            DisplayName='Interviewing',
+                            sess = session)
 
 @app.route('/interviewing', methods=['POST'])
 def interviewing():

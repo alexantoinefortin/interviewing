@@ -3,10 +3,10 @@
 <div class="w3-display-container w3-padding-large">
   <form action="" method="post" autocomplete="off">
 		<label><h5>Cognitive:</h5> Is this person smart? Capable of logical deduction? Quick learner? Capable of adaptation?</label><br>
-    <input type="text" id="commentOneCognitive" name="commentOneCognitive" placeholder="Your 1st comment about his cognitive abilities" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentTwoCognitive" name="commentTwoCognitive" placeholder="Your 2nd comment about his cognitive abilities" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentThreeCognitive" name="commentThreeCognitive" placeholder="Your 3rd comment about his cognitive abilities" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentFourCognitive" name="commentFourCognitive" placeholder="Your 4th comment about his cognitive abilities" style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentOneCognitive" name="commentOneCognitive" placeholder="Your 1st comment about his cognitive abilities" {% if sess['commentOneCognitive'] %}value={{sess['commentOneCognitive']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentTwoCognitive" name="commentTwoCognitive" placeholder="Your 2nd comment about his cognitive abilities" {% if sess['commentTwoCognitive'] %}value={{sess['commentTwoCognitive']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentThreeCognitive" name="commentThreeCognitive" placeholder="Your 3rd comment about his cognitive abilities" {% if sess['commentThreeCognitive'] %}value={{sess['commentThreeCognitive']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentFourCognitive" name="commentFourCognitive" placeholder="Your 4th comment about his cognitive abilities" {% if sess['commentFourCognitive'] %}value={{sess['commentFourCognitive']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
     <br>
 		<label><b>Cognitive Score: </b></label>{% include "slider.html" %}
 		<br>
