@@ -62,16 +62,17 @@ def thankyou():
 
 @app.route('/interviewing/hiringmanager', methods=['GET'])
 def getHiring():
+    print "This is a GET request on hiringmanager"
     session.clear()
     return render_template('hiringGET.html', DisplayName='Interviewing')
 
 @app.route('/interviewing/hiringmanager', methods=['POST'])
 def postHiring():
-    print flask.request.form.get('intervieweeFirstName')
+    print "This is a POST request on hiringmanager"
     db = f._connect_mongo('config')
-    #TODO check https://stackoverflow.com/questions/19696282/make-elemmatch-projection-return-all-objects-that-match-criteria/19697391
-    #query = { 'intervieweeFirstName': str(flask.request.form.get('intervieweeFirstName')) }
-    #_ = f.read_mongo(db, 'interviewing', query)
+    query = flask.request.form.get('intervieweeFirstName')+flask.request.form.get('intervieweeLastName')+flask.request.form.get('interviewDate')
+    query = query.lower().strip()
+    queryResultsLst = f.read_mongo(db, 'interviewing', query)
     return render_template('hiringPOST.html', DisplayName='Interviewing')
 
 # SERVING

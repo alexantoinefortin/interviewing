@@ -57,19 +57,14 @@ def _connect_mongo(conf):
         conn = MongoClient(conf['host'], conf['port'])
     return conn[conf['db']]
 
-def read_mongo(db, collection, query={}):
+def read_mongo(db, collection, query=''):
     """ Read from Mongo and Store into DataFrame """
     # Make a query to the specific DB and Collection
-    cursor = db[collection].find(query)
-    print "cursor:{}\n".format(cursor)
-    # Expand the cursor and construct the DataFrame
-    #print "listcursor: {}".format(list(cursor)[0]['customer'])
-    cust_dict = list(cursor)[0]
-    print "cust_dict:{}\n".format(cust_dict)
-    cust_info =  pd.Series(cust_dict)
-    print cust_info.dtypes
-    #cust_info.columns = [col.encode('ascii', 'ignore') for col in cust_info if col not in ['_id']]
-    return cust_info
+    cursor = db['interviewing'].aggregate([{"$match": {'id': query}}])
+    # Expand the cursor and return all hits for the 'id' in the database
+    myentries = list(cursor)
+    print myentries
+    return myentries
 
 def insert_mongo(db, collection, dict_to_insert):
     db[collection].insert_one(dict_to_insert)
