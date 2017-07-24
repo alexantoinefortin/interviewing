@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+{% include "headerlogo.html" %}
+<hr>
+Welcome to the hiring manager's tab, where you can find reviews of your candidates <br>
+<h4>Query-A-Candidate</h4>
+<div class="w3-display-container w3-padding-large">
+  <form action="" method="post" autocomplete="off">
+    <input type="text" id="intervieweeFirstName" name="intervieweeFirstName" placeholder="First name" style="width:200px">
+    <input type="text" id="intervieweeLastName" name="intervieweeLastName" placeholder="Last Name" style="width:200px"><br>
+    <input type="text" id="interviewDate" name="interviewDate" placeholder="Date of interview (MM/DD/YYYY)" style="width:200px"><br>
+    <input type="submit" name='next_button' value="Next" style="margin-top:10px">
+  </form>
+</div>
+<hr>
+{% include "footer.html" %}
+</body>
+</html>

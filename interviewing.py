@@ -47,9 +47,7 @@ def interviewing():
 @app.route('/interviewing/thankyou', methods=['GET'])
 def thankyou():
     # post session to DB
-    with open('config') as infile:
-        conf = json.load(infile)
-    db = f._connect_mongo(conf['host'], conf['port'], conf['username'], conf['password'], conf['db'])
+    db = f._connect_mongo('config')
     f.insert_mongo(db, 'interviewing', dict(session))
     # clear session
     tmp_first = session['intervieweeFirstName']
@@ -59,11 +57,17 @@ def thankyou():
 
 @app.route('/interviewing/hiringmanager', methods=['GET'])
 def getHiring():
-    return render_template('getHiring.html', DisplayName='Interviewing')
+    session.clear()
+    return render_template('hiringGET.html', DisplayName='Interviewing')
 
 @app.route('/interviewing/hiringmanager', methods=['POST'])
 def postHiring():
-    return render_template('postHiring.html', DisplayName='Interviewing')
+    print flask.request.form.get('intervieweeFirstName')
+    db = f._connect_mongo('config')
+    #TODO check https://stackoverflow.com/questions/19696282/make-elemmatch-projection-return-all-objects-that-match-criteria/19697391
+    #query = { 'intervieweeFirstName': str(flask.request.form.get('intervieweeFirstName')) }
+    #_ = f.read_mongo(db, 'interviewing', query)
+    return render_template('hiringPOST.html', DisplayName='Interviewing')
 
 # SERVING
 if __name__ == '__main__':
