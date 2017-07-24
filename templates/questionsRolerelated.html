@@ -3,10 +3,10 @@
 <div class="w3-display-container w3-padding-large">
   <form action="" method="post" autocomplete="off">
 		<label><h5>Role-related knowledge:</h5> Does this person have what it takes for the job? Could he do the job better than 50% of my coworkers? Does he have a good degree? Does he have good previous experiences (jobs, projects, school work, thesis)?</label><br>
-    <input type="text" id="commentOneRoleRelated" name="commentOneRoleRelated" placeholder="Your 1st comment about his role-related knowledge" {% if sess['commentOneRoleRelated'] %}value={{sess['commentOneRoleRelated']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentTwoRoleRelated" name="commentTwoRoleRelated" placeholder="Your 2nd comment about his role-related knowledge" {% if sess['commentTwoRoleRelated'] %}value={{sess['commentTwoRoleRelated']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentThreeRoleRelated" name="commentThreeRoleRelated" placeholder="Your 3rd comment about his role-related knowledge" {% if sess['commentThreeRoleRelated'] %}value={{sess['commentThreeRoleRelated']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentFourRoleRelated" name="commentFourRoleRelated" placeholder="Your 4th comment about his role-related knowledge" {% if sess['commentFourRoleRelated'] %}value={{sess['commentFourRoleRelated']}}{% endif %} style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentOneRoleRelated" name="commentOneRoleRelated" placeholder="Your 1st comment about his role-related knowledge" {% if sess['commentOneRoleRelated'] %} value="{{sess['commentOneRoleRelated']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentTwoRoleRelated" name="commentTwoRoleRelated" placeholder="Your 2nd comment about his role-related knowledge" {% if sess['commentTwoRoleRelated'] %} value="{{sess['commentTwoRoleRelated']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentThreeRoleRelated" name="commentThreeRoleRelated" placeholder="Your 3rd comment about his role-related knowledge" {% if sess['commentThreeRoleRelated'] %} value="{{sess['commentThreeRoleRelated']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
+    <input type="text" id="commentFourRoleRelated" name="commentFourRoleRelated" placeholder="Your 4th comment about his role-related knowledge" {% if sess['commentFourRoleRelated'] %} value="{{sess['commentFourRoleRelated']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
     <br>
 		<label><b>Role-related Score: </b></label>{% include "slider.html" %}
 		<br>
