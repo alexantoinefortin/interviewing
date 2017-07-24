@@ -27,6 +27,28 @@ interviewed on: {{sess['interviewDate']}}
       {% for i in range(sess['commentLeadership']|length) %}
         <p>Comment{{i}}: {{sess['commentLeadership'][i]}}</p>
       {% endfor %}
+      <hr>
+      <h3 class="w3-text-indigo">Scores</h3>
+      <table border="0" width="100%" class="dataTableDisplayTag">
+        <thead>
+          <tr>
+          <th class="sortableHeader sortable"></th>
+        	<th class="sortableHeader sortable" >Min</th>
+          <th class="sortableHeader sortable" >Q1</th>
+        	<th class="sortableHeader sortable" >Mean</th>
+          <th class="sortableHeader sortable" >Median</th>
+          <th class="sortableHeader sortable" >Q3</th>
+        	<th class="sortableHeader sortable" >Max</th>
+        </tr>
+        </thead>
+        {% for i in range(5) %}
+            {% if i%2==0 %} <tr valgn="baseline" class="altRow"> {% else %} <tr valgn="baseline" class="regRow">{% endif %}
+        <td>{{ sess['listOfScores'][i] }}</td>
+        {% for j in range(sess[sess['listOfScoresNames'][i]]|length) %}
+        <td>{{ sess[sess['listOfScoresNames'][i]][j] }}</td>
+        {% endfor %}
+        {% endfor %}
+        </table>
       </div>
   </div>
 </div>

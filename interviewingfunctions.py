@@ -4,7 +4,7 @@ Sunday, July 23rd 2017
 Description
 Longer and generally ugly function that are nice to hide here
 """
-import json, pandas as pd
+import json, pandas as pd, numpy as np
 from pymongo import MongoClient
 
 def loadToForm(session):
@@ -63,6 +63,12 @@ def removeCommentIfEmpty(session, checkStr):
     session[checkStr] = [x for x in session[checkStr] if x not in ['', u'', ' ', u' ']]
     return session
 
+def returnScoreStats(session, checkStr):
+    return [
+    str(np.min(session[checkStr]))[:5], str(np.nanpercentile(session[checkStr], 25))[:5],
+    str(np.mean(session[checkStr]))[:5], str(np.median(session[checkStr]))[:5],
+    str(np.nanpercentile(session[checkStr], 75))[:5], str(np.max(session[checkStr]))[:5]]
+
 def addReviewsToSession(session, queryResultsLst):
     if len(queryResultsLst)>0:
         session['intervieweeFirstName'] = queryResultsLst[0]['form_elm']['intervieweeFirstName']
@@ -72,32 +78,28 @@ def addReviewsToSession(session, queryResultsLst):
         for i in range(len(queryResultsLst)):
             tmpInfo = queryResultsLst[i]['form_elm']
             session['commentGeneral']+=[tmpInfo['commentGeneral']]
-            session['overallScore']+=[tmpInfo['overallScore']]
-            session['commentCognitive']+=[tmpInfo['commentOneCognitive']]
-            session['commentCognitive']+=[tmpInfo['commentTwoCognitive']]
-            session['commentCognitive']+=[tmpInfo['commentThreeCognitive']]
-            session['commentCognitive']+=[tmpInfo['commentFourCognitive']]
-            session['cognitiveScore']+=[tmpInfo['cognitiveScore']]
-            session['commentRoleRelated']+=[tmpInfo['commentOneRoleRelated']]
-            session['commentRoleRelated']+=[tmpInfo['commentTwoRoleRelated']]
-            session['commentRoleRelated']+=[tmpInfo['commentThreeRoleRelated']]
-            session['commentRoleRelated']+=[tmpInfo['commentFourRoleRelated']]
-            session['rolerelatedScore']+=[tmpInfo['rolerelatedScore']]
-            session['commentCoolness']+=[tmpInfo['commentOneCoolness']]
-            session['commentCoolness']+=[tmpInfo['commentTwoCoolness']]
-            session['commentCoolness']+=[tmpInfo['commentThreeCoolness']]
-            session['commentCoolness']+=[tmpInfo['commentFourCoolness']]
-            session['coolnessScore']+=[tmpInfo['coolnessScore']]
-            session['commentLeadership']+=[tmpInfo['commentOneLeadership']]
-            session['commentLeadership']+=[tmpInfo['commentTwoLeadership']]
-            session['commentLeadership']+=[tmpInfo['commentThreeLeadership']]
-            session['commentLeadership']+=[tmpInfo['commentFourLeadership']]
-            session['leadershipScore']+=[tmpInfo['leadershipScore']]
+            session['overallScore']+=[float(tmpInfo['overallScore'])]
+            session['commentCognitive']+=[tmpInfo['commentOneCognitive'], tmpInfo['commentTwoCognitive'], tmpInfo['commentThreeCognitive'], tmpInfo['commentFourCognitive']]
+            session['cognitiveScore']+=[float(tmpInfo['cognitiveScore'])]
+            session['commentRoleRelated']+=[tmpInfo['commentOneRoleRelated'], tmpInfo['commentTwoRoleRelated'], tmpInfo['commentThreeRoleRelated'], tmpInfo['commentFourRoleRelated']]
+            session['rolerelatedScore']+=[float(tmpInfo['rolerelatedScore'])]
+            session['commentCoolness']+=[tmpInfo['commentOneCoolness'], tmpInfo['commentTwoCoolness'], tmpInfo['commentThreeCoolness'], tmpInfo['commentFourCoolness']]
+            session['coolnessScore']+=[float(tmpInfo['coolnessScore'])]
+            session['commentLeadership']+=[tmpInfo['commentOneLeadership'], tmpInfo['commentTwoLeadership'], tmpInfo['commentThreeLeadership'], tmpInfo['commentFourLeadership']]
+            session['leadershipScore']+=[float(tmpInfo['leadershipScore'])]
         session = removeCommentIfEmpty(session, 'commentGeneral')
         session = removeCommentIfEmpty(session, 'commentCognitive')
         session = removeCommentIfEmpty(session, 'commentRoleRelated')
         session = removeCommentIfEmpty(session, 'commentCoolness')
         session = removeCommentIfEmpty(session, 'commentLeadership')
+        #TODO: remove score with default value & change default value to something ridiculous like 1, 0 or 5
+        session['overallScorestat'] = returnScoreStats(session, 'overallScore')
+        session['cognitiveScorestat'] = returnScoreStats(session, 'cognitiveScore')
+        session['rolerelatedScorestat'] = returnScoreStats(session, 'rolerelatedScore')
+        session['coolnessScorestat'] = returnScoreStats(session, 'coolnessScore')
+        session['leadershipScorestat'] = returnScoreStats(session, 'leadershipScore')
+        session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership']
+        session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat']
     return session
 
 # MONGODB utility functions
