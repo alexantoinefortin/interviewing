@@ -11,10 +11,8 @@ from flask import Flask, session, render_template, redirect, url_for, abort, req
 import interviewingfunctions as f
 
 app = Flask(__name__)
-
-#secret maker
-os.urandom(24)
-app.config['SECRET_KEY'] = '\xe0V7\x08C\x1a\x1c\x81c\xa7\xd7o\xcbo\x02u\x1a\x90\xf6\xb0\x8cT\xf4\xa5' # change that
+with open('config') as infile:
+    app.config['SECRET_KEY'] = json.load(infile)['secret']
 
 @app.route('/interviewing', methods=['GET'])
 def index():
