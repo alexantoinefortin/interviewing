@@ -5,13 +5,11 @@ Description
 Web-app to record feedback about a candidate met during an interview at AmFam
 """
 class PrefixMiddleware(object):
-
     def __init__(self, app, prefix=''):
         self.app = app
         self.prefix = prefix
 
     def __call__(self, environ, start_response):
-
         if environ['PATH_INFO'].startswith(self.prefix):
             environ['PATH_INFO'] = environ['PATH_INFO'][len(self.prefix):]
             environ['SCRIPT_NAME'] = self.prefix
@@ -25,7 +23,6 @@ from pymongo import MongoClient
 from datetime import date
 from flask import Flask, session, render_template, redirect, url_for, abort, request
 import interviewingfunctions as f
-
 
 app = Flask(__name__)
 app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/interviewing')
