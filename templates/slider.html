@@ -1,18 +1,18 @@
 
 {% if Progress==0 %}
-  <span id="mySliderValue">{% if sess['overallScore'] %}{{sess['overallScore']}} {% else %}2.5{% endif %}</span><br>
-  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['overallScore'] %}"{{sess['overallScore']}}"{% else %}"2.5"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
+  <span id="mySliderValue" name="mySliderValue">{% if sess['overallScore'] %}{{sess['overallScore']}} {% else %}Choose a score using the slider{% endif %}</span><br>
+  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['overallScore'] %}"{{sess['overallScore']}}"{% else %}"-1"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
 {% elif Progress==1 %}
-  <span id="mySliderValue">{% if sess['cognitiveScore'] %}{{sess['cognitiveScore']}} {% else %}2.5{% endif %}</span><br>
-  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['cognitiveScore'] %}"{{sess['cognitiveScore']}}"{% else %}"2.5"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
+  <span id="mySliderValue">{% if sess['cognitiveScore'] %}{{sess['cognitiveScore']}} {% else %}Choose a score using the slider{% endif %}</span><br>
+  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['cognitiveScore'] %}"{{sess['cognitiveScore']}}"{% else %}"-1"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
 {% elif Progress==2 %}
-  <span id="mySliderValue">{% if sess['rolerelatedScore'] %}{{sess['rolerelatedScore']}} {% else %}2.5{% endif %}</span><br>
-  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['rolerelatedScore'] %}"{{sess['rolerelatedScore']}}"{% else %}"2.5"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
+  <span id="mySliderValue">{% if sess['rolerelatedScore'] %}{{sess['rolerelatedScore']}} {% else %}Choose a score using the slider{% endif %}</span><br>
+  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['rolerelatedScore'] %}"{{sess['rolerelatedScore']}}"{% else %}"-1"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
 {% elif Progress==3 %}
-  <span id="mySliderValue">{% if sess['coolnessScore'] %}{{sess['coolnessScore']}} {% else %}2.5{% endif %}</span><br>
-  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['coolnessScore'] %}"{{sess['coolnessScore']}}"{% else %}"2.5"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
+  <span id="mySliderValue">{% if sess['coolnessScore'] %}{{sess['coolnessScore']}} {% else %}Choose a score using the slider{% endif %}</span><br>
+  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['coolnessScore'] %}"{{sess['coolnessScore']}}"{% else %}"-1"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
 {% elif Progress==4 %}
-  <span id="mySliderValue">{% if sess['leadershipScore'] %}{{sess['leadershipScore']}} {% else %}2.5{% endif %}</span><br>
-  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['leadershipScore'] %}"{{sess['leadershipScore']}}"{% else %}"2.5"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
+  <span id="mySliderValue">{% if sess['leadershipScore'] %}{{sess['leadershipScore']}} {% else %}Choose a score using the slider{% endif %}</span><br>
+  <input type="range" id="slider" name="slider" min="1" max="4" value={% if sess['leadershipScore'] %}"{{sess['leadershipScore']}}"{% else %}"-1"{% endif %} step="0.1" onchange="showValue(this.value); getMeaningValue(this.value)" style="width:100px"><br>
 {% endif %}
 <span id="scoreMeaningLabel"></span>

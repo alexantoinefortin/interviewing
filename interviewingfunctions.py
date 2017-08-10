@@ -64,10 +64,12 @@ def removeCommentIfEmpty(session, checkStr):
     return session
 
 def returnScoreStats(session, checkStr):
+    tmp = [x for x in session[checkStr] if x not in ['1','1.0',1,1.0]] # ignore default value
     return [
-    str(np.min(session[checkStr]))[:5], str(np.nanpercentile(session[checkStr], 25))[:5],
-    str(np.mean(session[checkStr]))[:5], str(np.median(session[checkStr]))[:5],
-    str(np.nanpercentile(session[checkStr], 75))[:5], str(np.max(session[checkStr]))[:5]]
+    str(np.min(tmp))[:5], str(np.nanpercentile(tmp, 25))[:5],
+    str(np.mean(tmp))[:5], str(np.median(tmp))[:5],
+    str(np.nanpercentile(tmp, 75))[:5], str(np.max(tmp))[:5],
+    str(len(tmp))]
 
 def addReviewsToSession(session, queryResultsLst):
     if len(queryResultsLst)>0:
@@ -95,9 +97,10 @@ def addReviewsToSession(session, queryResultsLst):
         session['rolerelatedScorestat'] = returnScoreStats(session, 'rolerelatedScore')
         session['coolnessScorestat'] = returnScoreStats(session, 'coolnessScore')
         session['leadershipScorestat'] = returnScoreStats(session, 'leadershipScore')
+        session['totalAverageScore'] = [str(r) for r in np.mean([[float(x) for x in session['overallScorestat']], [float(x) for x in session['cognitiveScorestat']],[float(x) for x in session['rolerelatedScorestat']], [float(x) for x in session['coolnessScorestat']], [float(x) for x in session['leadershipScorestat']]], axis=0)]
         #TODO: overall mean
-    session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership']
-    session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat']
+    session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership', 'Total (average)']
+    session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat', 'totalAverageScore']
     return session
 
 # MONGODB utility functions

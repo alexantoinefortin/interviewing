@@ -10,7 +10,7 @@ interviewed on: {{sess['interviewDate']}}
     <form action="" method="post" autocomplete="off">
       <input type="submit" name='back_button' value="Back" style="margin-top:10px">
     </form>
-    <div class="w3-twothird w3-container">
+    <div class="w3-half w3-container">
       <span class="w3-text-indigo w3-xlarge">General</span><span class="w3-medium"> score: {{sess['overallScorestat'][2]}}</span>
       {% for i in range(sess['commentGeneral']|length) %}
         <p>Comment{{i}}: {{sess['commentGeneral'][i]}}</p>
@@ -23,6 +23,9 @@ interviewed on: {{sess['interviewDate']}}
       {% for i in range(sess['commentRoleRelated']|length) %}
         <p>Comment{{i}}: {{sess['commentRoleRelated'][i]}}</p>
       {% endfor %}
+    <hr>
+    </div>
+      <div class="w3-half w3-container">
       <span class="w3-text-indigo w3-xlarge">Coolness</span><span class="w3-medium"> score: {{sess['coolnessScorestat'][2]}}</span>
       {% for i in range(sess['commentCoolness']|length) %}
         <p>Comment{{i}}: {{sess['commentCoolness'][i]}}</p>
@@ -31,9 +34,10 @@ interviewed on: {{sess['interviewDate']}}
       {% for i in range(sess['commentLeadership']|length) %}
         <p>Comment{{i}}: {{sess['commentLeadership'][i]}}</p>
       {% endfor %}
-      <hr>
+      </div>
+      <div class="w3-twothird w3-container">
       <span class="w3-text-indigo w3-xlarge">Scores</span>
-      <table border="0" width="100%" class="dataTableDisplayTag">
+      <table border="0" width="100%" class="dataTableDisplayTag" style="border-collapse: collapse;">
         <thead>
           <tr>
           <th class="sortableHeader sortable"></th>
@@ -43,10 +47,11 @@ interviewed on: {{sess['interviewDate']}}
           <th class="sortableHeader sortable" >Median</th>
           <th class="sortableHeader sortable" >Q3</th>
         	<th class="sortableHeader sortable" >Max</th>
+          <th class="sortableHeader sortable" >Count</th>
         </tr>
         </thead>
-        {% for i in range(5) %}
-            {% if i%2==0 %} <tr valgn="baseline" class="altRow"> {% else %} <tr valgn="baseline" class="regRow">{% endif %}
+        {% for i in range(6) %}
+            {% if i==5 %} <tr valgn="baseline" class="regRow w3-border-top">{% elif i%2==0 %} <tr valgn="baseline" class="altRow"> {% else %} <tr valgn="baseline" class="regRow">{% endif %}
         <td>{{ sess['listOfScores'][i] }}</td>
         {% for j in range(sess[sess['listOfScoresNames'][i]]|length) %}
         <td>{{ sess[sess['listOfScoresNames'][i]][j] }}</td>
