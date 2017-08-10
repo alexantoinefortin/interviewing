@@ -4,17 +4,36 @@ Sunday, July 23rd 2017
 Description
 Web-app to record feedback about a candidate met during an interview at AmFam
 """
+class PrefixMiddleware(object):
+
+    def __init__(self, app, prefix=''):
+        self.app = app
+        self.prefix = prefix
+
+    def __call__(self, environ, start_response):
+
+        if environ['PATH_INFO'].startswith(self.prefix):
+            environ['PATH_INFO'] = environ['PATH_INFO'][len(self.prefix):]
+            environ['SCRIPT_NAME'] = self.prefix
+            return self.app(environ, start_response)
+        else:
+            start_response('404', [('Content-Type', 'text/plain')])
+            return ["This url does not belong to the app.".encode()]
+
 import flask, os, json
 from pymongo import MongoClient
 from datetime import date
 from flask import Flask, session, render_template, redirect, url_for, abort, request
 import interviewingfunctions as f
 
+
 app = Flask(__name__)
+app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/interviewing')
 with open('config') as infile:
     app.config['SECRET_KEY'] = json.load(infile)['secret']
 
-@app.route('/interviewing', methods=['GET'])
+
+@app.route('/', methods=['GET'])
 def index():
     #It's the user's first visit to the website
     print 'This is a GET request'
@@ -27,7 +46,7 @@ def index():
                             DisplayName='Interviewing',
                             sess = session)
 
-@app.route('/interviewing', methods=['POST'])
+@app.route('/', methods=['POST'])
 def interviewing():
     global session
     print 'This is a POST request. Count:{}.'.format(session['progress_count'])
@@ -43,7 +62,7 @@ def interviewing():
         session.pop('progress_count', None) # don't want to log that
         return redirect(url_for('thankyou'))
 
-@app.route('/interviewing/thankyou', methods=['GET'])
+@app.route('/thankyou', methods=['GET'])
 def thankyou():
     # post session to DB
     db = f._connect_mongo('config')
@@ -59,13 +78,13 @@ def thankyou():
                             DisplayName='Interviewing',
                             IntervieweeName=tmp_first)
 
-@app.route('/interviewing/hiringmanager', methods=['GET'])
+@app.route('/hiringmanager', methods=['GET'])
 def getHiring():
     print "This is a GET request on hiringmanager"
     session.clear()
     return render_template('hiringGET.html', DisplayName='Interviewing')
 
-@app.route('/interviewing/hiringmanager', methods=['POST'])
+@app.route('/hiringmanager', methods=['POST'])
 def postHiring():
     print "This is a POST request on hiringmanager"
     if 'back_button' in flask.request.form:
