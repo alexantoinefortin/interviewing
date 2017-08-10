@@ -11,28 +11,28 @@ interviewed on: {{sess['interviewDate']}}
       <input type="submit" name='back_button' value="Back" style="margin-top:10px">
     </form>
     <div class="w3-twothird w3-container">
-      <h3 class="w3-text-indigo">General</h3>
+      <span class="w3-text-indigo w3-xlarge">General</span><span class="w3-medium"> score: {{sess['overallScorestat'][2]}}</span>
       {% for i in range(sess['commentGeneral']|length) %}
         <p>Comment{{i}}: {{sess['commentGeneral'][i]}}</p>
       {% endfor %}
-      <h3 class="w3-text-indigo">Cognitive abilities</h3>
+      <span class="w3-text-indigo w3-xlarge">Cognitive abilities</span><span class="w3-medium"> score: {{sess['cognitiveScorestat'][2]}}</span>
       {% for i in range(sess['commentCognitive']|length) %}
         <p>Comment{{i}}: {{sess['commentCognitive'][i]}}</p>
       {% endfor %}
-      <h3 class="w3-text-indigo">Role-related knowledge</h3>
+      <span class="w3-text-indigo w3-xlarge">Role-related knowledge</span><span class="w3-medium"> score: {{sess['rolerelatedScorestat'][2]}}</span>
       {% for i in range(sess['commentRoleRelated']|length) %}
         <p>Comment{{i}}: {{sess['commentRoleRelated'][i]}}</p>
       {% endfor %}
-      <h3 class="w3-text-indigo">Coolness</h3>
+      <span class="w3-text-indigo w3-xlarge">Coolness</span><span class="w3-medium"> score: {{sess['coolnessScorestat'][2]}}</span>
       {% for i in range(sess['commentCoolness']|length) %}
         <p>Comment{{i}}: {{sess['commentCoolness'][i]}}</p>
       {% endfor %}
-      <h3 class="w3-text-indigo">Leadership</h3>
+      <span class="w3-text-indigo w3-xlarge">Leadership</span><span class="w3-medium"> score: {{sess['leadershipScorestat'][2]}}</span>
       {% for i in range(sess['commentLeadership']|length) %}
         <p>Comment{{i}}: {{sess['commentLeadership'][i]}}</p>
       {% endfor %}
       <hr>
-      <h3 class="w3-text-indigo">Scores</h3>
+      <span class="w3-text-indigo w3-xlarge">Scores</span>
       <table border="0" width="100%" class="dataTableDisplayTag">
         <thead>
           <tr>
