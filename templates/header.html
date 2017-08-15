@@ -5,31 +5,35 @@
   <div class={% if Progress==0 %}"bluetab"{% else %}"graytab"{% endif %}>
     <div class="tab_left"></div>
     <div class="tab_text">
-      General</div>
+      <a href="{{url_for('redirect_to_other_page', progress_count='0')}}">General</a></div>
     <div class="tab_right"></div>
   </div>
 	<div class={% if Progress==1 %}"bluetab"{% else %}"graytab"{% endif %}>
     <div class="tab_left"></div>
     <div class="tab_text">
-      Cognitive</div>
+      <a href="{{url_for('redirect_to_other_page', progress_count='1')}}">Cognitive</a></div>
     <div class="tab_right"></div>
   </div>
 	<div class={% if Progress==2 %}"bluetab"{% else %}"graytab"{% endif %}>
 	  <div class="tab_left"></div>
 	  <div class="tab_text">
-		  Role-related</div>
+		  <a href="{{url_for('redirect_to_other_page', progress_count='2')}}">Role-related</a></div>
 	  <div class="tab_right"></div>
   </div>
   <div class={% if Progress==3 %}"bluetab"{% else %}"graytab"{% endif %}>
 		<div class="tab_left"></div>
 		<div class="tab_text">
-			Coolness</div>
+      <form name="submitForm" method="POST" action="">
+          <input type="hidden" name="progress_count" value="3">
+          <a href="javascript:document.submitForm.submit()">Coolness</a>
+      </form>
+      </div>
 		<div class="tab_right"></div>
 	</div>
   <div class={% if Progress==4 %}"bluetab"{% else %}"graytab"{% endif %}>
     <div class="tab_left"></div>
     <div class="tab_text">
-      Leadership Exp</div>
+      <a href="{{url_for('redirect_to_other_page', progress_count='4')}}">Leadership Exp</a></div>
     <div class="tab_right"></div>
   </div>
 </div>

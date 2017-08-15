@@ -6,6 +6,7 @@ Longer and generally ugly function that are nice to hide here
 """
 import json, pandas as pd, numpy as np
 from pymongo import MongoClient
+from webtools import catch
 
 def loadToForm(session):
     return 0
@@ -64,12 +65,15 @@ def removeCommentIfEmpty(session, checkStr):
     return session
 
 def returnScoreStats(session, checkStr):
-    tmp = [x for x in session[checkStr] if x not in ['1','1.0',1,1.0]] # ignore default value
-    return [
-    str(np.min(tmp))[:5], str(np.nanpercentile(tmp, 25))[:5],
-    str(np.mean(tmp))[:5], str(np.median(tmp))[:5],
-    str(np.nanpercentile(tmp, 75))[:5], str(np.max(tmp))[:5],
-    str(len(tmp))]
+    try:
+        tmp = [x for x in session[checkStr] if x not in ['1','1.0',1,1.0]] # ignore default value
+        return [
+        str(np.min(tmp))[:5], str(np.nanpercentile(tmp, 25))[:5],
+        str(np.mean(tmp))[:5], str(np.median(tmp))[:5],
+        str(np.nanpercentile(tmp, 75))[:5], str(np.max(tmp))[:5],
+        str(len(tmp))]
+    except:
+        return ['','','','','','','']
 
 def addReviewsToSession(session, queryResultsLst):
     if len(queryResultsLst)>0:
@@ -91,14 +95,18 @@ def addReviewsToSession(session, queryResultsLst):
         session = removeCommentIfEmpty(session, 'commentRoleRelated')
         session = removeCommentIfEmpty(session, 'commentCoolness')
         session = removeCommentIfEmpty(session, 'commentLeadership')
-        #TODO: remove score with default value & change default value to something ridiculous like 1, 0 or 5
-        session['overallScorestat'] = returnScoreStats(session, 'overallScore')
-        session['cognitiveScorestat'] = returnScoreStats(session, 'cognitiveScore')
-        session['rolerelatedScorestat'] = returnScoreStats(session, 'rolerelatedScore')
-        session['coolnessScorestat'] = returnScoreStats(session, 'coolnessScore')
-        session['leadershipScorestat'] = returnScoreStats(session, 'leadershipScore')
+    # Removes score with default value
+    print "session overallScorestat"
+    session['overallScorestat'] = returnScoreStats(session, 'overallScore')
+    session['cognitiveScorestat'] = returnScoreStats(session, 'cognitiveScore')
+    session['rolerelatedScorestat'] = returnScoreStats(session, 'rolerelatedScore')
+    session['coolnessScorestat'] = returnScoreStats(session, 'coolnessScore')
+    session['leadershipScorestat'] = returnScoreStats(session, 'leadershipScore')
+    try:
         session['totalAverageScore'] = [str(r) for r in np.mean([[float(x) for x in session['overallScorestat']], [float(x) for x in session['cognitiveScorestat']],[float(x) for x in session['rolerelatedScorestat']], [float(x) for x in session['coolnessScorestat']], [float(x) for x in session['leadershipScorestat']]], axis=0)]
-        #TODO: overall mean
+    except: # if len(queryResultsLst)==0
+        session['totalAverageScore'] = ['','','','','','','']
+    #TODO: overall mean
     session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership', 'Total (average)']
     session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat', 'totalAverageScore']
     return session

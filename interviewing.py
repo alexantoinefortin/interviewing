@@ -4,20 +4,7 @@ Sunday, July 23rd 2017
 Description
 Web-app to record feedback about a candidate met during an interview at AmFam
 """
-class PrefixMiddleware(object):
-    def __init__(self, app, prefix=''):
-        self.app = app
-        self.prefix = prefix
-
-    def __call__(self, environ, start_response):
-        if environ['PATH_INFO'].startswith(self.prefix):
-            environ['PATH_INFO'] = environ['PATH_INFO'][len(self.prefix):]
-            environ['SCRIPT_NAME'] = self.prefix
-            return self.app(environ, start_response)
-        else:
-            start_response('404', [('Content-Type', 'text/plain')])
-            return ["This url does not belong to the app.".encode()]
-
+from webtools import PrefixMiddleware, run_server  ##Added
 import flask, os, json
 from pymongo import MongoClient
 from datetime import date
@@ -25,10 +12,9 @@ from flask import Flask, session, render_template, redirect, url_for, abort, req
 import interviewingfunctions as f
 
 app = Flask(__name__)
-app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/interviewing')
+app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/interviewing') ##Added
 with open('config') as infile:
     app.config['SECRET_KEY'] = json.load(infile)['secret']
-
 
 @app.route('/', methods=['GET'])
 def index():
@@ -58,6 +44,15 @@ def interviewing():
     elif 'submit_button' in flask.request.form:
         session.pop('progress_count', None) # don't want to log that
         return redirect(url_for('thankyou'))
+    elif 'progress_count' in flask.request.form:
+        session['progress_count'] = int(flask.request.form.get('progress_count'))
+        return redirect(url_for('index'))
+
+# handle used to navigate the website using the tabs
+@app.route('/<progress_count>', methods=['GET', 'POST'])
+def redirect_to_other_page(progress_count):
+    session['progress_count']=int(progress_count)
+    return redirect(url_for('interviewing'))
 
 @app.route('/thankyou', methods=['GET'])
 def thankyou():
@@ -102,4 +97,5 @@ def postHiring():
 
 # SERVING
 if __name__ == '__main__':
-    app.run(threaded=True)
+    run_server(app) ##Added
+    #app.run(threaded=True)

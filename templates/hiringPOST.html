@@ -14,26 +14,26 @@ interviewed on: {{sess['interviewDate']}}
       <span class="w3-text-indigo w3-xlarge">General</span><span class="w3-medium"> score: {{sess['overallScorestat'][2]}}</span>
       {% for i in range(sess['commentGeneral']|length) %}
         <p>Comment{{i}}: {{sess['commentGeneral'][i]}}</p>
-      {% endfor %}
+      {% endfor %}{% if sess['commentGeneral']|length==0 %}<br>{% endif %}
       <span class="w3-text-indigo w3-xlarge">Cognitive abilities</span><span class="w3-medium"> score: {{sess['cognitiveScorestat'][2]}}</span>
       {% for i in range(sess['commentCognitive']|length) %}
         <p>Comment{{i}}: {{sess['commentCognitive'][i]}}</p>
-      {% endfor %}
+      {% endfor %}{% if sess['commentCognitive']|length==0 %}<br>{% endif %}
       <span class="w3-text-indigo w3-xlarge">Role-related knowledge</span><span class="w3-medium"> score: {{sess['rolerelatedScorestat'][2]}}</span>
       {% for i in range(sess['commentRoleRelated']|length) %}
         <p>Comment{{i}}: {{sess['commentRoleRelated'][i]}}</p>
-      {% endfor %}
+      {% endfor %}{% if sess['commentRoleRelated']|length==0 %}<br>{% endif %}
     <hr>
     </div>
       <div class="w3-half w3-container">
       <span class="w3-text-indigo w3-xlarge">Coolness</span><span class="w3-medium"> score: {{sess['coolnessScorestat'][2]}}</span>
       {% for i in range(sess['commentCoolness']|length) %}
         <p>Comment{{i}}: {{sess['commentCoolness'][i]}}</p>
-      {% endfor %}
+      {% endfor %}{% if sess['commentCoolness']|length==0 %}<br>{% endif %}
       <span class="w3-text-indigo w3-xlarge">Leadership</span><span class="w3-medium"> score: {{sess['leadershipScorestat'][2]}}</span>
       {% for i in range(sess['commentLeadership']|length) %}
         <p>Comment{{i}}: {{sess['commentLeadership'][i]}}</p>
-      {% endfor %}
+      {% endfor %}{% if sess['commentLeadership']|length==0 %}<br>{% endif %}
       </div>
       <div class="w3-twothird w3-container">
       <span class="w3-text-indigo w3-xlarge">Scores</span>
