@@ -5,7 +5,7 @@
 <div class="w3-main" style="margin-left:50px">
 <h4>{{sess['intervieweeFirstName']}} {{sess['intervieweeLastName']}}</h4>
 interviewed on: {{sess['interviewDate']}}
-{% if sess['commentGeneral']|length==0 %}
+{% if (sess['overallScorestat'][2]|length)==0 %}
 <p class="w3-text-red">No candidate with this name and date of interview found in our database.</p>
 {% endif %}
   <div class="w3-row">
