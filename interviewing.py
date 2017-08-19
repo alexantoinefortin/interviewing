@@ -5,10 +5,10 @@ Description
 Web-app to record feedback about a candidate met during an interview at AmFam
 """
 from webtools import PrefixMiddleware, run_server  ##Added
-import flask, os, json
+import flask, json
+import datetime
 from pymongo import MongoClient
-from datetime import date
-from flask import Flask, session, render_template, redirect, url_for, abort, request
+from flask import Flask, session, render_template, redirect, url_for, request
 import interviewingfunctions as f
 
 app = Flask(__name__)
@@ -32,8 +32,15 @@ def index():
 @app.route('/', methods=['POST'])
 def interviewing():
     global session
+    flask.session.permanent = True
+    app.permanent_session_lifetime = datetime.timedelta(minutes=60) # Session expires after 20 minutes
+    flask.session.modified = True # Reset counter for session timeout when set to True
     session = f.addToSession(session, flask.request.form)
-    if 'next_button' in flask.request.form:
+    print "session keys:\n{}".format(session.keys())
+    if 'progress_count' not in session.keys():
+        session['progress_count']=0
+        return redirect(url_for('index'))
+    elif 'next_button' in flask.request.form:
         session['progress_count']+=1
         return redirect(url_for('index'))
     elif 'prev_button' in flask.request.form:

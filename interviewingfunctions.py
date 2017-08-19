@@ -6,10 +6,6 @@ Longer and generally ugly function that are nice to hide here
 """
 import json, pandas as pd, numpy as np
 from pymongo import MongoClient
-from webtools import catch
-
-def loadToForm(session):
-    return 0
 
 def addToSession(session, flaskform):
     if 'evaluatorName' in flaskform:
