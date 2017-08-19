@@ -32,20 +32,6 @@ def index():
 @app.route('/', methods=['POST'])
 def interviewing():
     global session
-    print 'This is a POST request. Count:{}.'.format(session['progress_count'])
-    print flask.request
-    print "request.form"
-    print flask.request.form
-    print "request.data"
-    print flask.request.data
-    print "request.args"
-    print flask.request.args
-    print "request.files"
-    print flask.request.files
-    print "request.values"
-    print flask.request.values
-    print "request.get_json"
-    print flask.request.get_json()
     session = f.addToSession(session, flask.request.form)
     if 'next_button' in flask.request.form:
         session['progress_count']+=1
