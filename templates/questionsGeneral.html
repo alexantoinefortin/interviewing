@@ -1,21 +1,19 @@
 <!-- questionsGeneral.html -->
 
 <div class="w3-display-container w3-padding-large">
-  <form action="" method="post" autocomplete="off">
 		<label>Evaluator's information</label><br>
-    <input type="text" id="evaluatorName" name="evaluatorName" placeholder="Your name (John Smith)" {% if sess['evaluatorName'] %}value="{{sess['evaluatorName']}}"{% endif %} style="width:200px" autofocus>
-    <input type="text" id="userID" name="userID" placeholder="Your AmFam ID (jxs007)" {% if sess['userID'] %}value="{{sess['userID']}}"{% endif %} style="width:200px">
+    <input type="text" id="evaluatorName" name="evaluatorName" form="submitForm" placeholder="Your name (John Smith)" {% if sess['evaluatorName'] %}value="{{sess['evaluatorName']}}"{% endif %} style="width:200px" autofocus>
+    <input type="text" id="userID" name="userID" form="submitForm" placeholder="Your AmFam ID (jxs007)" {% if sess['userID'] %}value="{{sess['userID']}}"{% endif %} style="width:200px">
     <hr>
     <label>Interviewee's information</label><br>
-    <input type="text" id="intervieweeFirstName" name="intervieweeFirstName" placeholder="First name" {% if sess['intervieweeFirstName'] %} value="{{sess['intervieweeFirstName']}}"{% endif %} style="width:200px">
-    <input type="text" id="intervieweeLastName" name="intervieweeLastName" placeholder="Last Name" {% if sess['intervieweeLastName'] %} value="{{sess['intervieweeLastName']}}"{% endif %} style="width:200px"><br>
-		<input type="text" id="intervieweeRole" name="intervieweeRole" placeholder="Role interviewed for" {% if sess['intervieweeRole'] %} value="{{sess['intervieweeRole']}}"{% endif %} style="width:200px"><br>
-    <input type="text" id="interviewDate" name="interviewDate" placeholder="Date of interview (MM/DD/YYYY)" {% if sess['interviewDate'] %} value="{{sess['interviewDate']}}"{% endif %} style="width:200px"><hr>
-    <input type="text" id="commentGeneral" name="commentGeneral" placeholder="General comment on the interviewee" {% if sess['commentGeneral'] %} value="{{sess['commentGeneral']}}"{% endif %} style="width:400px">
+    <input type="text" id="intervieweeFirstName" name="intervieweeFirstName" form="submitForm" placeholder="First name" {% if sess['intervieweeFirstName'] %} value="{{sess['intervieweeFirstName']}}"{% endif %} style="width:200px">
+    <input type="text" id="intervieweeLastName" name="intervieweeLastName" form="submitForm" placeholder="Last Name" {% if sess['intervieweeLastName'] %} value="{{sess['intervieweeLastName']}}"{% endif %} style="width:200px"><br>
+		<input type="text" id="intervieweeRole" name="intervieweeRole" form="submitForm" placeholder="Role interviewed for" {% if sess['intervieweeRole'] %} value="{{sess['intervieweeRole']}}"{% endif %} style="width:200px"><br>
+    <input type="text" id="interviewDate" name="interviewDate" form="submitForm" placeholder="Date of interview (MM/DD/YYYY)" {% if sess['interviewDate'] %} value="{{sess['interviewDate']}}"{% endif %} style="width:200px"><hr>
+    <input type="text" id="commentGeneral" name="commentGeneral" form="submitForm" placeholder="General comment on the interviewee" {% if sess['commentGeneral'] %} value="{{sess['commentGeneral']}}"{% endif %} style="width:400px">
 		<br><br>
 		<label><b>Overall Score: </b></label>{% include "slider.html" %}
 		<br>
-    <input type="submit" name='prev_button' value="Previous" style="margin-right: 350px" disabled>
-		<input type="submit" name='next_button' value="Next">
-  </form>
+    <input type="submit" name='prev_button' form="submitForm" value="Previous" style="margin-right: 350px" disabled>
+		<input type="submit" name='next_button' form="submitForm" value="Next">
 </div>

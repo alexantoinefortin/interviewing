@@ -7,7 +7,6 @@ function showValue(newValue)
   document.getElementById("mySliderValue").innerHTML=newValue;
 }
 
-
 <!-- Get meaning, in English, of sliders value -->
 function getMeaningValue(newValue)
 {
@@ -21,6 +20,20 @@ function getMeaningValue(newValue)
 		valueMeaning = "4: I want to hire this person and whoever does not can expect to hear from me"
 	}
 	document.getElementById("scoreMeaningLabel").innerHTML=valueMeaning;
+}
+
+function addHidden(theForm, key, value) {
+    // Create a hidden input element, and append it to the form:
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key; // 'the key/name of the attribute/field that is sent to the server
+    input.value = value;
+    theForm.appendChild(input);
+}
+
+function add_element(progress_count){
+	var theForm = document.forms['submitForm'];
+	addHidden(theForm, 'progress_count', progress_count);
 }
 
 </script>
