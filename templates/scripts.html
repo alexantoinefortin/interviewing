@@ -1,6 +1,6 @@
 <!-- Scripts -->
-
 <script type="text/javascript">
+
 <!-- Get value of slider -->
 function showValue(newValue)
 {
@@ -22,6 +22,7 @@ function getMeaningValue(newValue)
 	document.getElementById("scoreMeaningLabel").innerHTML=valueMeaning;
 }
 
+<!-- Utility used in add_element() -->
 function addHidden(theForm, key, value) {
     // Create a hidden input element, and append it to the form:
     var input = document.createElement('input');
@@ -31,6 +32,7 @@ function addHidden(theForm, key, value) {
     theForm.appendChild(input);
 }
 
+<!-- Used to add progress_count in a form just before submitting it -->
 function add_element(progress_count){
 	var theForm = document.forms['submitForm'];
 	addHidden(theForm, 'progress_count', progress_count);
