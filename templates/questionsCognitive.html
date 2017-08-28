@@ -9,6 +9,8 @@
     <br>
 		<label><b>Cognitive Score: </b></label>{% include "slider.html" %}
 		<br>
-    <input type="submit" form="submitForm" name='prev_button' value="Previous" style="margin-right: 350px">
+    <form name="submitForm" id="submitForm" method="POST" autocomplete="False">
+		<input type="submit" form="submitForm" name='prev_button' value="Previous" style="margin-right: 350px">
 		<input type="submit" form="submitForm" name='next_button' value="Next">
+	</form>
 </div>
