@@ -12,9 +12,10 @@ class PrefixMiddleware(object):
         self.prefix = prefix
 
     def __call__(self, environ, start_response):
-        if environ['PATH_INFO'].startswith(self.prefix):
-            environ['PATH_INFO'] = environ['PATH_INFO'][len(self.prefix):]
+        if self.prefix:
             environ['SCRIPT_NAME'] = self.prefix
+            if environ['PATH_INFO'].startswith(self.prefix):
+                environ['PATH_INFO'] = environ['PATH_INFO'][len(self.prefix):]
             return self.app(environ, start_response)
         else:
             start_response('404', [('Content-Type', 'text/plain')])
@@ -39,4 +40,3 @@ def catch(func, handle=lambda e : e, *args, **kwargs):
         return func(*args, **kwargs)
     except Exception as e:
         return handle(e)
-        
