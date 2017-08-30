@@ -126,7 +126,7 @@ def read_mongo(db, collection, query=''):
     cursor = db['interviewing'].aggregate([{"$match": {'id': query}}])
     # Expand the cursor and return all hits for the 'id' in the database
     myentries = list(cursor)
-    print myentries
+    #print myentries
     return myentries
 
 def insert_mongo(db, collection, dict_to_insert):

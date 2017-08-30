@@ -24,7 +24,6 @@ def index():
     form = RegistrationForm(flask.request.form)
     if 'progress_count' not in session:
         session['progress_count']=0
-    print session
     return render_template( 'interviewing.html',
                             Progress=session['progress_count'],
                             DisplayName='Interviewing',
@@ -40,11 +39,9 @@ def interviewing():
     session = f.addToSession(session, flask.request.form)
     form = RegistrationForm(flask.request.form)
     if 'progress_count' not in session.keys():
-        print "progress_count not in session.keys()"
         session['progress_count']=0
         return redirect(url_for('index'))
     elif 'next_button' in flask.request.form and int(session['progress_count'])==0 and form.validate(): # must validate General questions
-        print"next_button, progress_count==0, form.validate"
         session['progress_count']+=1
         return redirect(url_for('index'))
     elif 'next_button' in flask.request.form and int(session['progress_count'])!=0 : # unnecessary to validate cognitive, role-related, coolness, and leadership tabs
@@ -71,7 +68,6 @@ def interviewing():
         return redirect(url_for('index'))
     else: # form did not validate
         #session['progress_count']=session['form_did_not_validate_progress']
-        print 'form did not validate'
         return render_template( 'interviewing.html',
                                 Progress=session['progress_count'],
                                 DisplayName='Interviewing',
@@ -116,7 +112,6 @@ def postHiring():
         return redirect(url_for('getHiring'))
     else:
         form = queryACandidateForm(flask.request.form)
-        print flask.request.form
         if form.validate():
             db = f._connect_mongo('config')
             query = flask.request.form.get('intervieweeFirstName')+flask.request.form.get('intervieweeLastName')+flask.request.form.get('interviewDate')
