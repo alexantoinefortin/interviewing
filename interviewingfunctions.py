@@ -19,7 +19,6 @@ def addToSession(session, flaskform):
         session['commentGeneral'] = flaskform.get('commentGeneral').strip()
         session['overallScore'] = flaskform.get('slider')
     elif 'commentOneCognitive' in flaskform:
-        print flaskform.get('commentOneCognitive')
         session['commentOneCognitive'] = flaskform.get('commentOneCognitive').strip()
         session['commentTwoCognitive'] = flaskform.get('commentTwoCognitive').strip()
         session['commentThreeCognitive'] = flaskform.get('commentThreeCognitive').strip()
