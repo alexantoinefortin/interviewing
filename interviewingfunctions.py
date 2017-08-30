@@ -6,6 +6,7 @@ Longer and generally ugly function that are nice to hide here
 """
 import json, pandas as pd, numpy as np
 from pymongo import MongoClient
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
 def addToSession(session, flaskform):
     if 'evaluatorName' in flaskform:
@@ -130,3 +131,15 @@ def read_mongo(db, collection, query=''):
 
 def insert_mongo(db, collection, dict_to_insert):
     db[collection].insert_one(dict_to_insert)
+
+class RegistrationForm(Form):
+    """
+    Class to use with wtforms. It makes it easy to validate forms before submiting them.
+    """
+    sqlValidators = validators.Regexp(regex=r'^[A-Za-z0-9@$%^&+,:\ .]+$', message='Allowed characters are alphanumerics, spaces and @$%^&+,:.')
+    evaluatorName = StringField('evaluatorName', [validators.DataRequired(message='Your name is required'), sqlValidators])
+    userID = StringField('userID', [validators.Regexp(regex= '^[a-zA-Z][a-zA-Z][a-zA-Z][0-9][0-9][0-9]$', message='UserID must have the format xxx000.'), validators.DataRequired(message='Your userID is required'), sqlValidators])
+    intervieweeFirstName = StringField('intervieweeFirstName', [validators.Length(min=2, max=35, message="The interviewee's first name must be between %(min)d and %(max)d characters long."), sqlValidators])
+    intervieweeLastName = StringField('intervieweeLastName', [validators.Length(min=2, max=35, message="The interviewee's last name must be between %(min)d and %(max)d characters long."), sqlValidators])
+    intervieweeRole = StringField('intervieweeRole', [validators.DataRequired(message='Role interviewed for is required.'), sqlValidators])
+    interviewDate = StringField('interviewDate', [validators.Regexp(regex= '^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$', message='Date of interview must be a valid date and respect the format MM/DD/YYYY.'), validators.DataRequired(message='Date of interview is required.')])

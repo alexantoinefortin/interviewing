@@ -10,6 +10,7 @@ import datetime
 from pymongo import MongoClient
 from flask import Flask, session, render_template, redirect, url_for, request
 import interviewingfunctions as f
+from interviewingfunctions import RegistrationForm
 
 app = Flask(__name__)
 app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/interviewing') ##Added
@@ -20,27 +21,33 @@ with open('config') as infile:
 def index():
     #It's the user's first visit to the website
     print 'This is a GET request'
-    #f.loadToForm(session)
+    form = RegistrationForm(flask.request.form)
     if 'progress_count' not in session:
         session['progress_count']=0
     print session
     return render_template( 'interviewing.html',
                             Progress=session['progress_count'],
                             DisplayName='Interviewing',
-                            sess = session)
+                            sess = session, form=form)
 
 @app.route('/', methods=['POST'])
 def interviewing():
     global session
+    print 'This is a POST request'
     flask.session.permanent = True
-    app.permanent_session_lifetime = datetime.timedelta(minutes=60) # Session expires after 20 minutes
+    app.permanent_session_lifetime = datetime.timedelta(minutes=60) # Session expires after 60 minutes
     flask.session.modified = True # Reset counter for session timeout when set to True
     session = f.addToSession(session, flask.request.form)
-    print "session keys:\n{}".format(session.keys())
+    form = RegistrationForm(flask.request.form)
     if 'progress_count' not in session.keys():
+        print "progress_count not in session.keys()"
         session['progress_count']=0
         return redirect(url_for('index'))
-    elif 'next_button' in flask.request.form:
+    elif 'next_button' in flask.request.form and int(session['progress_count'])==0 and form.validate(): # must validate General questions
+        print"next_button, progress_count==0, form.validate"
+        session['progress_count']+=1
+        return redirect(url_for('index'))
+    elif 'next_button' in flask.request.form and int(session['progress_count'])!=0 : # unnecessary to validate cognitive, role-related, coolness, and leadership tabs
         session['progress_count']+=1
         return redirect(url_for('index'))
     elif 'prev_button' in flask.request.form:
@@ -48,15 +55,35 @@ def interviewing():
         return redirect(url_for('index'))
     elif 'submit_button' in flask.request.form:
         session.pop('progress_count', None) # don't want to log that
+        session.pop('current_count', None) # don't want to log that
         return redirect(url_for('thankyou'))
-    elif 'progress_count' in flask.request.form:
+    elif 'progress_count' in flask.request.form and int(flask.request.form.get('current_count'))==0 and form.validate(): # used tab to navigate the website from General tab
         session['progress_count'] = int(flask.request.form.get('progress_count'))
         return redirect(url_for('index'))
+    elif 'progress_count' in flask.request.form and int(flask.request.form.get('current_count'))==0 and form.validate()==False: # used tab to navigate the website from General tab
+        session['progress_count'] = int(flask.request.form.get('current_count'))
+        return render_template( 'interviewing.html',
+                                Progress=session['progress_count'],
+                                DisplayName='Interviewing',
+                                sess = session, form=form)
+    elif 'progress_count' in flask.request.form and int(flask.request.form.get('current_count'))!=0: # used tab to navigate the website from another tab
+        session['progress_count'] = int(flask.request.form.get('progress_count'))
+        return redirect(url_for('index'))
+    else: # form did not validate
+        #session['progress_count']=session['form_did_not_validate_progress']
+        print 'form did not validate'
+        return render_template( 'interviewing.html',
+                                Progress=session['progress_count'],
+                                DisplayName='Interviewing',
+                                sess = session, form=form)
 
 # handle used to navigate the website using the tabs
 @app.route('/<progress_count>', methods=['GET', 'POST'])
 def redirect_to_other_page(progress_count):
-    session['progress_count']=int(progress_count)
+    try:
+        session['progress_count']=int(progress_count)
+    except:
+        session['progress_count']=0
     return redirect(url_for('interviewing'))
 
 @app.route('/thankyou', methods=['GET'])

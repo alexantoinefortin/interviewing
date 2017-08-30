@@ -1,16 +1,23 @@
 <!-- questionsGeneral.html -->
-
+{% from "_form_error_helper.html" import render_field_errors %}
 <div class="w3-display-container w3-padding-large">
+	<font class="w3-text-red w3-small">
+		{{ render_field_errors(form.evaluatorName) }}
+		{{ render_field_errors(form.userID) }}
+		{{ render_field_errors(form.intervieweeFirstName) }}
+		{{ render_field_errors(form.intervieweeLastName) }}
+		{{ render_field_errors(form.intervieweeRole) }}
+		{{ render_field_errors(form.interviewDate) }}
+	</font>
 		<label>Evaluator's information</label><br>
-    <input type="text" id="evaluatorName" name="evaluatorName" form="submitForm" placeholder="Your name (John Smith)" {% if sess['evaluatorName'] %}value="{{sess['evaluatorName']}}"{% endif %} style="width:200px" autofocus>
-    <input type="text" id="userID" name="userID" form="submitForm" placeholder="Your AmFam ID (jxs007)" {% if sess['userID'] %}value="{{sess['userID']}}"{% endif %} style="width:200px">
-    <hr>
-    <label>Interviewee's information</label><br>
-    <input type="text" id="intervieweeFirstName" name="intervieweeFirstName" form="submitForm" placeholder="First name" {% if sess['intervieweeFirstName'] %} value="{{sess['intervieweeFirstName']}}"{% endif %} style="width:200px">
-    <input type="text" id="intervieweeLastName" name="intervieweeLastName" form="submitForm" placeholder="Last Name" {% if sess['intervieweeLastName'] %} value="{{sess['intervieweeLastName']}}"{% endif %} style="width:200px"><br>
-		<input type="text" id="intervieweeRole" name="intervieweeRole" form="submitForm" placeholder="Role interviewed for" {% if sess['intervieweeRole'] %} value="{{sess['intervieweeRole']}}"{% endif %} style="width:200px"><br>
-    <input type="text" id="interviewDate" name="interviewDate" form="submitForm" placeholder="Date of interview (MM/DD/YYYY)" {% if sess['interviewDate'] %} value="{{sess['interviewDate']}}"{% endif %} style="width:200px"><hr>
-    <input type="text" id="commentGeneral" name="commentGeneral" form="submitForm" placeholder="General comment on the interviewee" {% if sess['commentGeneral'] %} value="{{sess['commentGeneral']}}"{% endif %} style="width:400px">
+    {{ form.evaluatorName(value=sess['evaluatorName'], placeholder="Your name (John Smith)", style="width:200px", form="submitForm")|safe }}
+    {{ form.userID(value=sess['userID'], placeholder="Your AmFam ID (jxs007)", style="width:200px", form="submitForm")|safe }}<hr>
+	<label>Interviewee's information</label><br>
+	{{ form.intervieweeFirstName(value=sess['intervieweeFirstName'], placeholder="First name", style="width:200px", form="submitForm")|safe }}
+	{{ form.intervieweeLastName(value=sess['intervieweeLastName'], placeholder="Last name", style="width:200px", form="submitForm")|safe }}<br>
+	{{ form.intervieweeRole(value=sess['intervieweeRole'], placeholder="Role interviewed for", style="width:200px", form="submitForm")|safe }}<br>
+	{{ form.interviewDate(value=sess['interviewDate'], placeholder="Date of interview (MM/DD/YYYY)", style="width:200px", form="submitForm")|safe }}<hr>
+	<input type="text" id="commentGeneral" name="commentGeneral" form="submitForm" placeholder="General comment on the interviewee" {% if sess['commentGeneral'] %} value="{{sess['commentGeneral']}}"{% endif %} style="width:400px">
 		<br><br>
 		<label><b>Overall Score: </b></label>{% include "slider.html" %}
 		<br>

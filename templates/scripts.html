@@ -33,9 +33,10 @@ function addHidden(theForm, key, value) {
 }
 
 <!-- Used to add progress_count in a form just before submitting it -->
-function add_element(progress_count){
+function add_element(current_count, progress_count){
 	var theForm = document.forms['submitForm'];
 	addHidden(theForm, 'progress_count', progress_count);
+    addHidden(theForm, 'current_count', current_count);
 }
 
 </script>
