@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
 {% include "headerlogo.html" %}
+{% from "_form_error_helper.html" import render_field_errors %}
 <hr>
 Welcome to the hiring manager's tab, where you can find reviews of your candidates <br>
 <h4>Query-A-Candidate</h4>
 <div class="w3-display-container w3-padding-large">
+    <font class="w3-text-red w3-small">
+        {{ render_field_errors(form.intervieweeFirstName) }}
+        {{ render_field_errors(form.intervieweeLastName) }}
+        {{ render_field_errors(form.interviewDate) }}
+    </font>
   <form action="" method="post" autocomplete="off">
-    <input type="text" id="intervieweeFirstName" name="intervieweeFirstName" placeholder="First name" style="width:200px">
-    <input type="text" id="intervieweeLastName" name="intervieweeLastName" placeholder="Last Name" style="width:200px"><br>
-    <input type="text" id="interviewDate" name="interviewDate" placeholder="Date of interview (MM/DD/YYYY)" style="width:200px"><br>
-    <input type="submit" name='next_button' value="Next" style="margin-top:10px">
+    {{ form.intervieweeFirstName(placeholder="First name", style="width:200px")|safe }}
+  	{{ form.intervieweeLastName(placeholder="Last name", style="width:200px")|safe }}<br>
+    {{ form.interviewDate(placeholder="Date of interview (MM/DD/YYYY)", style="width:200px")|safe }}<hr>
+  	<input type="submit" name='next_button' value="Next" style="margin-top:10px">
   </form>
 </div>
 <hr>

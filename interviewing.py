@@ -10,7 +10,7 @@ import datetime
 from pymongo import MongoClient
 from flask import Flask, session, render_template, redirect, url_for, request
 import interviewingfunctions as f
-from interviewingfunctions import RegistrationForm
+from interviewingfunctions import RegistrationForm, queryACandidateForm
 
 app = Flask(__name__)
 app.wsgi_app = PrefixMiddleware(app.wsgi_app, prefix='/interviewing') ##Added
@@ -100,13 +100,14 @@ def thankyou():
     session.clear()
     return render_template( 'thankyou.html',
                             DisplayName='Interviewing',
-                            IntervieweeName=tmp_first)
+                            IntervieweeName=tmp_first, sess=session)
 
 @app.route('/hiringmanager', methods=['GET'])
 def getHiring():
     print "This is a GET request on hiringmanager"
     session.clear()
-    return render_template('hiringGET.html', DisplayName='Interviewing')
+    form = RegistrationForm(flask.request.form)
+    return render_template('hiringGET.html', DisplayName='Interviewing', form=form)
 
 @app.route('/hiringmanager', methods=['POST'])
 def postHiring():
@@ -114,18 +115,24 @@ def postHiring():
     if 'back_button' in flask.request.form:
         return redirect(url_for('getHiring'))
     else:
-        db = f._connect_mongo('config')
-        query = flask.request.form.get('intervieweeFirstName')+flask.request.form.get('intervieweeLastName')+flask.request.form.get('interviewDate')
-        query = query.lower().strip()
-        queryResultsLst = f.read_mongo(db, 'interviewing', query)
-        session.clear() # We are done with this information
-        # Add reviews/comments to session
-        session['intervieweeFirstName'] = flask.request.form.get('intervieweeFirstName')
-        session['intervieweeLastName'] = flask.request.form.get('intervieweeLastName')
-        session['interviewDate'] = flask.request.form.get('interviewDate')
-        sess = f.addReviewsToSession(session, queryResultsLst)
-        return render_template('hiringPOST.html', DisplayName='Interviewing',
-        sess=sess)
+        form = queryACandidateForm(flask.request.form)
+        print flask.request.form
+        if form.validate():
+            db = f._connect_mongo('config')
+            query = flask.request.form.get('intervieweeFirstName')+flask.request.form.get('intervieweeLastName')+flask.request.form.get('interviewDate')
+            query = query.lower().strip()
+            queryResultsLst = f.read_mongo(db, 'interviewing', query)
+            session.clear() # We are done with this information
+            # Add reviews/comments to session
+            session['intervieweeFirstName'] = flask.request.form.get('intervieweeFirstName')
+            session['intervieweeLastName'] = flask.request.form.get('intervieweeLastName')
+            session['interviewDate'] = flask.request.form.get('interviewDate')
+            sess = f.addReviewsToSession(session, queryResultsLst)
+            return render_template('hiringPOST.html', DisplayName='Interviewing',
+            sess=sess)
+        elif form.validate()==False:
+            return render_template('hiringGET.html', DisplayName='Interviewing', form=form)
+
 
 # SERVING
 if __name__ == '__main__':

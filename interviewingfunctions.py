@@ -19,6 +19,7 @@ def addToSession(session, flaskform):
         session['commentGeneral'] = flaskform.get('commentGeneral').strip()
         session['overallScore'] = flaskform.get('slider')
     elif 'commentOneCognitive' in flaskform:
+        print flaskform.get('commentOneCognitive')
         session['commentOneCognitive'] = flaskform.get('commentOneCognitive').strip()
         session['commentTwoCognitive'] = flaskform.get('commentTwoCognitive').strip()
         session['commentThreeCognitive'] = flaskform.get('commentThreeCognitive').strip()
@@ -142,4 +143,13 @@ class RegistrationForm(Form):
     intervieweeFirstName = StringField('intervieweeFirstName', [validators.Length(min=2, max=35, message="The interviewee's first name must be between %(min)d and %(max)d characters long."), sqlValidators])
     intervieweeLastName = StringField('intervieweeLastName', [validators.Length(min=2, max=35, message="The interviewee's last name must be between %(min)d and %(max)d characters long."), sqlValidators])
     intervieweeRole = StringField('intervieweeRole', [validators.DataRequired(message='Role interviewed for is required.'), sqlValidators])
+    interviewDate = StringField('interviewDate', [validators.Regexp(regex= '^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$', message='Date of interview must be a valid date and respect the format MM/DD/YYYY.'), validators.DataRequired(message='Date of interview is required.')])
+
+class queryACandidateForm(Form):
+    """
+    Class to use with wtforms. It makes it easy to validate forms before submiting them.
+    """
+    sqlValidators = validators.Regexp(regex=r'^[A-Za-z0-9@$%^&+,:\ .]+$', message='Allowed characters are alphanumerics, spaces and @$%^&+,:.')
+    intervieweeFirstName = StringField('intervieweeFirstName', [validators.Length(min=2, max=35, message="The interviewee's first name must be between %(min)d and %(max)d characters long."), sqlValidators])
+    intervieweeLastName = StringField('intervieweeLastName', [validators.Length(min=2, max=35, message="The interviewee's last name must be between %(min)d and %(max)d characters long."), sqlValidators])
     interviewDate = StringField('interviewDate', [validators.Regexp(regex= '^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$', message='Date of interview must be a valid date and respect the format MM/DD/YYYY.'), validators.DataRequired(message='Date of interview is required.')])
