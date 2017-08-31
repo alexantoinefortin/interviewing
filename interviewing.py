@@ -39,6 +39,7 @@ def interviewing():
     session = f.addToSession(session, flask.request.form)
     form = RegistrationForm(flask.request.form)
     if 'progress_count' not in session.keys():
+        session.clear() # useful if you go from hiringmanager to interviewing
         session['progress_count']=0
         return redirect(url_for('index'))
     elif 'next_button' in flask.request.form and int(session['progress_count'])==0 and form.validate(): # must validate General questions
