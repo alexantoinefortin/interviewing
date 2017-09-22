@@ -5,6 +5,7 @@ Description
 Web-app to record feedback about a candidate met during an interview at AmFam
 """
 from webtools import PrefixMiddleware, run_server  ##Added
+import webtools  as w
 import flask, json
 import datetime
 from pymongo import MongoClient
@@ -86,12 +87,12 @@ def redirect_to_other_page(progress_count):
 @app.route('/thankyou', methods=['GET'])
 def thankyou():
     # post session to DB
-    db = f._connect_mongo('config')
+    db = w._connect_mongo('config')
     dict_to_insert = {'form_elm':dict(session)}
     dict_to_insert['id'] = dict_to_insert['form_elm']['intervieweeFirstName']+dict_to_insert['form_elm']['intervieweeLastName']+dict_to_insert['form_elm']['interviewDate']
     dict_to_insert['id'] = dict_to_insert['id'].lower().strip()
     print "id is:{}.".format(dict_to_insert['id'])
-    f.insert_mongo(db, 'interviewing', dict_to_insert)
+    w.insert_mongo(db, 'interviewing', dict_to_insert)
     # clear session
     tmp_first = session['intervieweeFirstName']
     session.clear()
@@ -114,10 +115,10 @@ def postHiring():
     else:
         form = queryACandidateForm(flask.request.form)
         if form.validate():
-            db = f._connect_mongo('config')
+            db = w._connect_mongo('config')
             query = flask.request.form.get('intervieweeFirstName')+flask.request.form.get('intervieweeLastName')+flask.request.form.get('interviewDate')
             query = query.lower().strip()
-            queryResultsLst = f.read_mongo(db, 'interviewing', query)
+            queryResultsLst = w.read_mongo(db, 'interviewing', query)
             session.clear() # We are done with this information
             # Add reviews/comments to session
             session['intervieweeFirstName'] = flask.request.form.get('intervieweeFirstName')

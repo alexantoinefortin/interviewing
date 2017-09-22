@@ -6,7 +6,7 @@ Longer and generally ugly function that are nice to hide here
 """
 import json, pandas as pd, numpy as np
 from pymongo import MongoClient
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from wtforms import Form, StringField, validators
 
 def addToSession(session, flaskform):
     if 'evaluatorName' in flaskform:
@@ -107,30 +107,6 @@ def addReviewsToSession(session, queryResultsLst):
     session['listOfScores'] = ['Overall','Cognitive','Role-related','Coolness','Leadership', 'Total (average)']
     session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat', 'totalAverageScore']
     return session
-
-# MONGODB utility functions
-def _connect_mongo(conf):
-    """ A util for making a connection to mongo """
-    with open(conf) as infile:
-        conf = json.load(infile)
-    if conf['username'] and conf['password']:
-        mongo_uri = 'mongodb://{}:{}@{}:{}/{}'.format(conf['username'], conf['password'], conf['host'], conf['port'], conf['db'])
-        conn = MongoClient(mongo_uri)
-    else:
-        conn = MongoClient(conf['host'], conf['port'])
-    return conn[conf['db']]
-
-def read_mongo(db, collection, query=''):
-    """ Read from Mongo and Store into DataFrame """
-    # Make a query to the specific DB and Collection
-    cursor = db['interviewing'].aggregate([{"$match": {'id': query}}])
-    # Expand the cursor and return all hits for the 'id' in the database
-    myentries = list(cursor)
-    #print myentries
-    return myentries
-
-def insert_mongo(db, collection, dict_to_insert):
-    db[collection].insert_one(dict_to_insert)
 
 class RegistrationForm(Form):
     """
