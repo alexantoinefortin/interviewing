@@ -40,3 +40,26 @@ def catch(func, handle=lambda e : e, *args, **kwargs):
         return func(*args, **kwargs)
     except Exception as e:
         return handle(e)
+# MONGODB utility functions
+def _connect_mongo(conf):
+    """ A util for making a connection to mongo """
+    with open(conf) as infile:
+        conf = json.load(infile)
+    if conf['username'] and conf['password']:
+        mongo_uri = 'mongodb://{}:{}@{}:{}/{}'.format(conf['username'], conf['password'], conf['host'], conf['port'], conf['db'])
+        conn = MongoClient(mongo_uri)
+    else:
+        conn = MongoClient(conf['host'], conf['port'])
+    return conn[conf['db']]
+
+def read_mongo(db, collection, query=''):
+    """ Read from Mongo and Store into DataFrame """
+    # Make a query to the specific DB and Collection
+    cursor = db['interviewing'].aggregate([{"$match": {'id': query}}])
+    # Expand the cursor and return all hits for the 'id' in the database
+    myentries = list(cursor)
+    #print myentries
+    return myentries
+
+def insert_mongo(db, collection, dict_to_insert):
+    db[collection].insert_one(dict_to_insert)
