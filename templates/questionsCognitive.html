@@ -1,12 +1,9 @@
 <!-- questionsGeneral.html -->
 
 <div class="w3-display-container w3-padding-large">
-		<label><h5>Cognitive:</h5> Is this person smart? Capable of logical deduction? Quick learner? Capable of adaptation?</label><br>
-    <input type="text" id="commentOneCognitive" name="commentOneCognitive" form="submitForm" placeholder="Your 1st comment about his cognitive abilities" {% if sess['commentOneCognitive'] %} value="{{sess['commentOneCognitive']}}{% endif %}" style="width:400px; margin-bottom: 10px" autofocus><br>
-    <input type="text" id="commentTwoCognitive" name="commentTwoCognitive" form="submitForm" placeholder="Your 2nd comment about his cognitive abilities" {% if sess['commentTwoCognitive'] %} value="{{sess['commentTwoCognitive']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentThreeCognitive" name="commentThreeCognitive" form="submitForm" placeholder="Your 3rd comment about his cognitive abilities" {% if sess['commentThreeCognitive'] %} value="{{sess['commentThreeCognitive']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentFourCognitive" name="commentFourCognitive" form="submitForm" placeholder="Your 4th comment about his cognitive abilities" {% if sess['commentFourCognitive'] %} value="{{sess['commentFourCognitive']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <br>
+	<label><h5>Cognitive:</h5> Is this person smart? Capable of logical deduction? Quick learner? Capable of adaptation?</label><br>
+	<textarea id="commentOneCognitive" name="commentOneCognitive" form="submitForm" rows="5" cols="100" style="margin-bottom: 10px; margin-top: 10px" placeholder="Your comment about his or her cognitive abilities" autofocus>{% if sess['commentOneCognitive'] %}{{sess['commentOneCognitive']}}{% endif %}</textarea><br>
+	<br>
 		<label><b>Cognitive Score: </b></label>{% include "slider.html" %}
 		<br>
 		<input type="submit" form="submitForm" name='prev_button' value="Previous" style="margin-right: 350px">

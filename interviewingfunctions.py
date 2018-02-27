@@ -4,11 +4,17 @@ Sunday, July 23rd 2017
 Description
 Longer and generally ugly function that are nice to hide here
 """
-import json, pandas as pd, numpy as np
+import time, json, pandas as pd, numpy as np
 from pymongo import MongoClient
 from wtforms import Form, StringField, validators
+from datetime import datetime
 
 def addToSession(session, flaskform):
+    """
+    Function used in the hiringmanger tab. It must keep backward compatibility
+    with the fields named commentOne..., commentTwo..., commentThree...,
+    commentFour... since the DB was built in this way at first.
+    """
     if 'evaluatorName' in flaskform:
         session['evaluatorName'] = flaskform.get('evaluatorName').strip()
         session['userID'] = flaskform.get('userID').strip()
@@ -20,27 +26,27 @@ def addToSession(session, flaskform):
         session['overallScore'] = flaskform.get('slider')
     elif 'commentOneCognitive' in flaskform:
         session['commentOneCognitive'] = flaskform.get('commentOneCognitive').strip()
-        session['commentTwoCognitive'] = flaskform.get('commentTwoCognitive').strip()
-        session['commentThreeCognitive'] = flaskform.get('commentThreeCognitive').strip()
-        session['commentFourCognitive'] = flaskform.get('commentFourCognitive').strip()
+        session['commentTwoCognitive'] = flaskform.get('commentTwoCognitive', '').strip()
+        session['commentThreeCognitive'] = flaskform.get('commentThreeCognitive', '').strip()
+        session['commentFourCognitive'] = flaskform.get('commentFourCognitive', '').strip()
         session['cognitiveScore'] = flaskform.get('slider')
     elif 'commentOneRoleRelated' in flaskform:
         session['commentOneRoleRelated'] = flaskform.get('commentOneRoleRelated').strip()
-        session['commentTwoRoleRelated'] = flaskform.get('commentTwoRoleRelated').strip()
-        session['commentThreeRoleRelated'] = flaskform.get('commentThreeRoleRelated').strip()
-        session['commentFourRoleRelated'] = flaskform.get('commentFourRoleRelated').strip()
+        session['commentTwoRoleRelated'] = flaskform.get('commentTwoRoleRelated', '').strip()
+        session['commentThreeRoleRelated'] = flaskform.get('commentThreeRoleRelated', '').strip()
+        session['commentFourRoleRelated'] = flaskform.get('commentFourRoleRelated', '').strip()
         session['rolerelatedScore'] = flaskform.get('slider')
     elif 'commentOneCoolness' in flaskform:
         session['commentOneCoolness'] = flaskform.get('commentOneCoolness').strip()
-        session['commentTwoCoolness'] = flaskform.get('commentTwoCoolness').strip()
-        session['commentThreeCoolness'] = flaskform.get('commentThreeCoolness').strip()
-        session['commentFourCoolness'] = flaskform.get('commentFourCoolness').strip()
+        session['commentTwoCoolness'] = flaskform.get('commentTwoCoolness', '').strip()
+        session['commentThreeCoolness'] = flaskform.get('commentThreeCoolness', '').strip()
+        session['commentFourCoolness'] = flaskform.get('commentFourCoolness', '').strip()
         session['coolnessScore'] = flaskform.get('slider')
     elif 'commentOneLeadership' in flaskform:
         session['commentOneLeadership'] = flaskform.get('commentOneLeadership').strip()
-        session['commentTwoLeadership'] = flaskform.get('commentTwoLeadership').strip()
-        session['commentThreeLeadership'] = flaskform.get('commentThreeLeadership').strip()
-        session['commentFourLeadership'] = flaskform.get('commentFourLeadership').strip()
+        session['commentTwoLeadership'] = flaskform.get('commentTwoLeadership', '').strip()
+        session['commentThreeLeadership'] = flaskform.get('commentThreeLeadership', '').strip()
+        session['commentFourLeadership'] = flaskform.get('commentFourLeadership', '').strip()
         session['leadershipScore'] = flaskform.get('slider')
     return session
 
@@ -108,6 +114,15 @@ def addReviewsToSession(session, queryResultsLst):
     session['listOfScoresNames'] = ['overallScorestat','cognitiveScorestat','rolerelatedScorestat','coolnessScorestat','leadershipScorestat', 'totalAverageScore']
     return session
 
+def date_checker(form, field):
+    field_ts = time.mktime(datetime.strptime(field.data, "%m/%d/%Y").timetuple())
+    if field.data=='06/21/1989':
+        pass # For testing
+    elif field_ts > time.time():
+        raise validators.ValidationError('The interview date cannot be in the future')
+    elif field_ts < (time.time()-7*24*60*60):
+        raise validators.ValidationError("Interview review must be done within 1 week from the interview's date")
+
 class RegistrationForm(Form):
     """
     Class to use with wtforms. It makes it easy to validate forms before submiting them.
@@ -118,7 +133,7 @@ class RegistrationForm(Form):
     intervieweeFirstName = StringField('intervieweeFirstName', [validators.Length(min=2, max=35, message="The interviewee's first name must be between %(min)d and %(max)d characters long."), sqlValidators])
     intervieweeLastName = StringField('intervieweeLastName', [validators.Length(min=2, max=35, message="The interviewee's last name must be between %(min)d and %(max)d characters long."), sqlValidators])
     intervieweeRole = StringField('intervieweeRole', [validators.DataRequired(message='Role interviewed for is required.'), sqlValidators])
-    interviewDate = StringField('interviewDate', [validators.Regexp(regex= '^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$', message='Date of interview must be a valid date and respect the format MM/DD/YYYY.'), validators.Length(min=10, max=10, message="For the date of interview, make sure that both month and day have 2 digits each (09 instead of 9), and that year has 4 digits (1999 or 2016 instead of 99 or 16)"), validators.DataRequired(message='Date of interview is required.')])
+    interviewDate = StringField('interviewDate', [validators.Regexp(regex= '^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$', message='Date of interview must be a valid date and respect the format MM/DD/YYYY.'), validators.Length(min=10, max=10, message="For the date of interview, make sure that both month and day have 2 digits each (09 instead of 9), and that year has 4 digits (1999 or 2016 instead of 99 or 16)"), date_checker, validators.DataRequired(message='Date of interview is required.')])
 
 class queryACandidateForm(Form):
     """

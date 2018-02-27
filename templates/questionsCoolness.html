@@ -2,11 +2,8 @@
 
 <div class="w3-display-container w3-padding-large">
     <label><h5>Coolness:</h5> Is this person interesting? Does he have a personality? What are his interests?</label><br>
-    <input type="text" id="commentOneCoolness" name="commentOneCoolness" form="submitForm" placeholder="Your 1st comment about his coolness" {% if sess['commentOneCoolness'] %} value="{{sess['commentOneCoolness']}}{% endif %}" style="width:400px; margin-bottom: 10px" autofocus><br>
-    <input type="text" id="commentTwoCoolness" name="commentTwoCoolness" form="submitForm" placeholder="Your 2nd comment about his coolness" {% if sess['commentTwoCoolness'] %} value="{{sess['commentTwoCoolness']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentThreeCoolness" name="commentThreeCoolness" form="submitForm" placeholder="Your 3rd comment about his coolness" {% if sess['commentThreeCoolness'] %} value="{{sess['commentThreeCoolness']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentFourCoolness" name="commentFourCoolness" form="submitForm" placeholder="Your 4th comment about his coolness" {% if sess['commentFourCoolness'] %} value="{{sess['commentFourCoolness']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <br>
+    <textarea id="commentOneCoolness" name="commentOneCoolness" form="submitForm" rows="5" cols="100" style="margin-bottom: 10px; margin-top: 10px" placeholder="Your comment about his or her coolness" autofocus>{% if sess['commentOneCoolness'] %}{{sess['commentOneCoolness']}}{% endif %}</textarea><br>
+	<br>
 		<label><b>Coolness Score: </b></label>{% include "slider.html" %}
 		<br>
         <input type="submit" name='prev_button' form="submitForm" value="Previous" style="margin-right: 350px">

@@ -17,7 +17,7 @@
 	{{ form.intervieweeLastName(value=sess['intervieweeLastName'], placeholder="Last name", style="width:200px", form="submitForm")|safe }}<br>
 	{{ form.intervieweeRole(value=sess['intervieweeRole'], placeholder="Role interviewed for", style="width:200px", form="submitForm")|safe }}<br>
 	{{ form.interviewDate(value=sess['interviewDate'], placeholder="Date of interview (MM/DD/YYYY)", style="width:200px", form="submitForm")|safe }}<hr>
-	<input type="text" id="commentGeneral" name="commentGeneral" form="submitForm" placeholder="General comment on the interviewee" {% if sess['commentGeneral'] %} value="{{sess['commentGeneral']}}"{% endif %} style="width:400px">
+	<textarea id="commentGeneral" name="commentGeneral" form="submitForm" rows="5" cols="80" style="margin-bottom: 10px" placeholder="General comment on the interviewee">{% if sess['commentGeneral'] %}{{sess['commentGeneral']}}{% endif %}</textarea>
 		<br><br>
 		<label><b>Overall Score: </b></label>{% include "slider.html" %}
 		<br>

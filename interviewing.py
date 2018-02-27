@@ -24,6 +24,7 @@ def index():
     print 'This is a GET request'
     form = RegistrationForm(flask.request.form)
     if 'progress_count' not in session:
+        session.clear() # useful for manager coming back from the hiringmanager tab
         session['progress_count']=0
     return render_template( 'interviewing.html',
                             Progress=session['progress_count'],

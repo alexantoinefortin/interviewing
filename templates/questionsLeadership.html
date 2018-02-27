@@ -1,12 +1,9 @@
 <!-- questionsGeneral.html -->
 
 <div class="w3-display-container w3-padding-large">
-		<label><h5>Leadership:</h5> Is he taking initiatives? Is he self-motivated? Can he inspire others?</label><br>
-    <input type="text" id="commentOneLeadership" name="commentOneLeadership" form="submitForm" placeholder="Your 1st comment about his sense of leadership" {% if sess['commentOneLeadership'] %} value="{{sess['commentOneLeadership']}}{% endif %}" style="width:400px; margin-bottom: 10px" autofocus><br>
-    <input type="text" id="commentTwoLeadership" name="commentTwoLeadership" form="submitForm" placeholder="Your 2nd comment about his sense of leadership" {% if sess['commentTwoLeadership'] %} value="{{sess['commentTwoLeadership']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentThreeLeadership" name="commentThreeLeadership" form="submitForm" placeholder="Your 3rd comment about his sense of leadership" {% if sess['commentThreeLeadership'] %} value="{{sess['commentThreeLeadership']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <input type="text" id="commentFourLeadership" name="commentFourLeadership" form="submitForm" placeholder="Your 4th comment about his sense of leadership" {% if sess['commentFourLeadership'] %} value="{{sess['commentFourLeadership']}}{% endif %}" style="width:400px; margin-bottom: 10px"><br>
-    <br>
+	<label><h5>Leadership:</h5> Is he taking initiatives? Is he self-motivated? Can he inspire others?</label><br>
+		<textarea id="commentOneLeadership" name="commentOneLeadership" form="submitForm" rows="5" cols="100" style="margin-bottom: 10px; margin-top: 10px" placeholder="Your comment about his or her sense of leadership" autofocus>{% if sess['commentOneLeadership'] %}{{sess['commentOneLeadership']}}{% endif %}</textarea><br>
+		<br>
 		<label><b>Leadership Score: </b></label>{% include "slider.html" %}
 		<br>
         <input type="submit" name='prev_button' form="submitForm" value="Previous" style="margin-right: 350px">
