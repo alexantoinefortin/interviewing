@@ -1,7 +1,7 @@
 <!-- questionsGeneral.html -->
 
 <div class="w3-display-container w3-padding-large">
-    <label><h5>Coolness:</h5> Is this person interesting? Does he have a personality? What are his interests?</label><br>
+    <label><h5>Coolness:</h5> Is the candidate interesting? <br> Does the candidate have a personality? <br> What are the candidate's interests?</label><br>
     <textarea id="commentOneCoolness" name="commentOneCoolness" form="submitForm" rows="5" cols="100" style="margin-bottom: 10px; margin-top: 10px" placeholder="Your comment about his or her coolness" autofocus>{% if sess['commentOneCoolness'] %}{{sess['commentOneCoolness']}}{% endif %}</textarea><br>
 	<br>
 		<label><b>Coolness Score: </b></label>{% include "slider.html" %}

@@ -1,7 +1,7 @@
 <!-- questionsGeneral.html -->
 
 <div class="w3-display-container w3-padding-large">
-		<label><h5>Role-related knowledge:</h5> Does this person have what it takes for the job? Could he do the job better than 50% of my coworkers? Does he have a good degree? Does he have desirable previous experiences (jobs, projects, school work, thesis)?</label><br>
+		<label><h5>Role-related knowledge:</h5> Does the candidate have what it takes for the job?<br> Could the candidate do the job better than 50% of my coworkers?<br> Does the candidate have a good degree?<br> Does the candidate have desirable previous experiences (jobs, projects, school work, thesis)?</label><br>
     <textarea id="commentOneRoleRelated" name="commentOneRoleRelated" form="submitForm" rows="5" cols="100" style="margin-bottom: 10px; margin-top: 10px" placeholder="Your comment about his or her role-related knowledge" autofocus>{% if sess['commentOneRoleRelated'] %}{{sess['commentOneRoleRelated']}}{% endif %}</textarea><br>
     <br>
 		<label><b>Role-related Score: </b></label>{% include "slider.html" %}

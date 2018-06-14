@@ -1,7 +1,7 @@
 <!-- questionsGeneral.html -->
 
 <div class="w3-display-container w3-padding-large">
-	<label><h5>Cognitive:</h5> Is this person smart? Capable of logical deduction? Quick learner? Capable of adaptation?</label><br>
+	<label><h5>Cognitive:</h5> Is this person smart?<br> Capable of logical deduction?<br> Quick learner?<br> Capable of adaptation?</label><br>
 	<textarea id="commentOneCognitive" name="commentOneCognitive" form="submitForm" rows="5" cols="100" style="margin-bottom: 10px; margin-top: 10px" placeholder="Your comment about his or her cognitive abilities" autofocus>{% if sess['commentOneCognitive'] %}{{sess['commentOneCognitive']}}{% endif %}</textarea><br>
 	<br>
 		<label><b>Cognitive Score: </b></label>{% include "slider.html" %}
