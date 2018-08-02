@@ -123,6 +123,16 @@ def date_checker(form, field):
     elif field_ts < (time.time()-7*24*60*60):
         raise validators.ValidationError("Interview review must be done within 1 week from the interview's date")
 
+def date_checker_queryacandidate(form, field):
+    field_ts = time.mktime(datetime.strptime(field.data, "%m/%d/%Y").timetuple())
+    if field.data=='06/21/1989':
+        pass # For testing
+    elif field_ts > time.time():
+        raise validators.ValidationError('The interview date cannot be in the future')
+    elif field_ts < (time.time()-4*7*24*60*60):
+        raise validators.ValidationError("Interview review must be done within 4 weeks from the interview's date")
+
+
 class RegistrationForm(Form):
     """
     Class to use with wtforms. It makes it easy to validate forms before submiting them.
@@ -142,4 +152,4 @@ class queryACandidateForm(Form):
     sqlValidators = validators.Regexp(regex=r'^[A-Za-z0-9@$%^&+,:\ .]+$', message='Allowed characters are alphanumerics, spaces and @$%^&+,:.')
     intervieweeFirstName = StringField('intervieweeFirstName', [validators.Length(min=2, max=35, message="The interviewee's first name must be between %(min)d and %(max)d characters long."), sqlValidators])
     intervieweeLastName = StringField('intervieweeLastName', [validators.Length(min=2, max=35, message="The interviewee's last name must be between %(min)d and %(max)d characters long."), sqlValidators])
-    interviewDate = StringField('interviewDate', [validators.Regexp(regex= '^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$', message='Date of interview must be a valid date and respect the format MM/DD/YYYY.'), validators.Length(min=10, max=10, message="For the date of interview, make sure that both month and day have 2 digits each (09 instead of 9), and that year has 4 digits (1999 or 2016 instead of 99 or 16)"), validators.DataRequired(message='Date of interview is required.')])
+    interviewDate = StringField('interviewDate', [validators.Regexp(regex= '^((0?[13578]|10|12)(-|\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[01]?))(-|\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1}))|(0?[2469]|11)(\/)(([1-9])|(0[1-9])|([12])([0-9]?)|(3[0]?))(\/)((19)([2-9])(\d{1})|(20)([01])(\d{1})|([8901])(\d{1})))$', message='Date of interview must be a valid date and respect the format MM/DD/YYYY.'), validators.Length(min=10, max=10, message="For the date of interview, make sure that both month and day have 2 digits each (09 instead of 9), and that year has 4 digits (1999 or 2016 instead of 99 or 16)"), date_checker_queryacandidate, validators.DataRequired(message='Date of interview is required.')])
